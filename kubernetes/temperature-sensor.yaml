@@ -1,0 +1,118 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: temperature-sensor-t-0001
+spec:
+  containers:
+    - name: sensor
+      image: quay.io/cescoffi/devnation-2023-temperature-sensor:1.0-SNAPSHOT
+      imagePullPolicy: IfNotPresent
+      env:
+        - name: DEVICE_ID
+          value: "t-0001"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: temperature-sensor-t-0002
+spec:
+  containers:
+    - name: sensor
+      image: quay.io/cescoffi/devnation-2023-temperature-sensor:1.0-SNAPSHOT
+      imagePullPolicy: IfNotPresent
+      env:
+        - name: DEVICE_ID
+          value: "t-0002"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: temperature-sensor-t-0003
+spec:
+  containers:
+    - name: sensor
+      image: quay.io/cescoffi/devnation-2023-temperature-sensor:1.0-SNAPSHOT
+      imagePullPolicy: IfNotPresent
+      env:
+        - name: DEVICE_ID
+          value: "t-0003"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: temperature-sensor-t-0004
+spec:
+  containers:
+    - name: sensor
+      image: quay.io/cescoffi/devnation-2023-temperature-sensor:1.0-SNAPSHOT
+      imagePullPolicy: IfNotPresent
+      env:
+        - name: DEVICE_ID
+          value: "t-0004"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: temperature-sensor-t-0005
+spec:
+  containers:
+    - name: sensor
+      image: quay.io/cescoffi/devnation-2023-temperature-sensor:1.0-SNAPSHOT
+      imagePullPolicy: IfNotPresent
+      env:
+        - name: DEVICE_ID
+          value: "t-0005"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: temperature-sensor-t-0006
+spec:
+  containers:
+    - name: sensor
+      image: quay.io/cescoffi/devnation-2023-temperature-sensor:1.0-SNAPSHOT
+      imagePullPolicy: IfNotPresent
+      env:
+        - name: DEVICE_ID
+          value: "t-0006"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: temperature-sensor-t-0007
+spec:
+  containers:
+    - name: sensor
+      image: quay.io/cescoffi/devnation-2023-temperature-sensor:1.0-SNAPSHOT
+      imagePullPolicy: IfNotPresent
+      env:
+        - name: DEVICE_ID
+          value: "t-0007"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: temperature-sensor-t-0008
+spec:
+  containers:
+    - name: sensor
+      image: quay.io/cescoffi/devnation-2023-temperature-sensor:1.0-SNAPSHOT
+      imagePullPolicy: IfNotPresent
+      env:
+        - name: DEVICE_ID
+          value: "t-0008"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: temperature-sensor-t-0009
+spec:
+  containers:
+    - name: sensor
+      image: quay.io/cescoffi/devnation-2023-temperature-sensor:1.0-SNAPSHOT
+      imagePullPolicy: IfNotPresent
+      env:
+        - name: DEVICE_ID
+          value: "t-0009"
+---
