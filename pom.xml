@@ -43,6 +43,7 @@
         <module>temperature-sensor</module>
         <module>measure-enrichment</module>
         <module>alert-manager</module>
+        <module>dashboard</module>
     </modules>
 
 </project>

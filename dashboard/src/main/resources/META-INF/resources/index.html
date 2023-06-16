@@ -1,0 +1,521 @@
+
+<!DOCTYPE html>
+<html lang="en" class="pf-m-redhat-font">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="fonts.css" />
+  <!-- Include latest PatternFly CSS via CDN -->
+  <link 
+    rel="stylesheet" 
+    href="https://unpkg.com/@patternfly/patternfly/patternfly.css" 
+    crossorigin="anonymous"
+  >
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://d3js.org/d3.v4.js"></script>
+
+  <title>PatternFly Basic CodeSandbox Example</title>
+</head>
+<body>
+  <div class="pf-c-page" id="dashboard-demo">
+    <a
+      class="pf-c-skip-to-content pf-c-button pf-m-primary"
+      href="#main-content-dashboard-demo"
+    >Skip to content</a>
+    <header class="pf-c-masthead" id="dashboard-demo-masthead">
+      <span class="pf-c-masthead__toggle">
+        <button
+          class="pf-c-button pf-m-plain"
+          type="button"
+          aria-label="Global navigation"
+        >
+          <i class="fas fa-bars" aria-hidden="true"></i>
+        </button>
+      </span>
+      <div class="pf-c-masthead__main">
+        Data Streaming Demo
+      </div>
+    </header>
+    <div class="pf-c-page__sidebar">
+      <div class="pf-c-page__sidebar-body">
+        <nav class="pf-c-nav" id="dashboard-demo-primary-nav" aria-label="Global">
+          <ul class="pf-c-nav__list">
+            <li class="pf-c-nav__item">
+              <a
+                href="#"
+                class="pf-c-nav__link pf-m-current"
+                aria-current="page"
+              >Dashboard</a>
+            </li>
+            <li class="pf-c-nav__item">
+              <a href="#" class="pf-c-nav__link">Simulator</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <main class="pf-c-page__main" tabindex="-1" id="main-content-dashboard-demo">
+      <section class="pf-c-page__main-section pf-m-limit-width pf-m-light">
+        <div class="pf-c-page__main-body">
+          <div class="pf-c-content">
+            <h1>Dashboard</h1>
+            <p>This is the dashboard of the Data Streaming Demo.</p>
+          </div>
+        </div>
+      </section>
+      <section class="pf-c-page__main-section pf-m-limit-width">
+        <div class="pf-c-page__main-body">
+          <div class="pf-l-grid pf-m-gutter">
+            <div class="pf-c-card pf-m-expanded">
+              <div class="pf-c-card__header">
+                <div
+                  class="pf-c-card__title"
+                  id="dashboard-demo-expandable-status-card-1-title"
+                >
+                  <h2 class="pf-c-title pf-m-xl">Gages</h2>
+                </div>
+              </div>
+              <div class="pf-c-card__expandable-content">
+                <div class="pf-l-flex pf-m-column pf-m-row-on-md">
+                  <div
+                    class="pf-l-flex pf-m-flex-1 pf-m-align-self-stretch pf-m-align-items-stretch"
+                  >
+                    <div class="pf-c-card pf-m-plain">
+                      <div class="pf-c-card__body">
+                        
+                        <div
+                          class="pf-l-flex pf-m-column pf-u-h-100 pf-m-space-items-sm"
+                        >
+                          
+                          <div
+                            class="pf-l-flex pf-m-space-items-sm pf-m-column-on-md pf-m-row-on-lg pf-m-spacer-md-on-md pf-m-spacer-sm-on-lg"
+                          >
+                            <div class="pf-c-label-group">
+                              <div class="pf-c-label-group__main">
+                                <ul
+                                  class="pf-c-label-group__list"
+                                  role="list"
+                                  aria-label="Group of labels"
+                                >
+                                  <li class="pf-c-label-group__list-item">
+                                    <span
+                                      class="pf-c-label pf-m-blue pf-m-outline"
+                                    >
+                                      <span class="pf-c-label__content">
+                                        <span class="pf-c-label__icon">
+                                          <i
+                                            class="pf-icon pf-icon-port"
+                                            aria-hidden="true"
+                                          ></i>
+                                        </span>
+                                        Data Streams
+                                      </span>
+                                    </span>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>                          
+                          <div class="pf-l-flex__item pf-m-spacer-md">
+                            <div id="messageCountChart"></div>                          
+                          </div>                          
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <hr class="pf-c-divider pf-m-vertical-on-md pf-m-inset-3xl" />
+                  <div
+                    class="pf-l-flex pf-m-flex-1 pf-m-align-self-stretch pf-m-align-items-stretch"
+                  >
+                    <div class="pf-c-card pf-m-plain">
+                      <div class="pf-c-card__body">
+                        <div
+                          class="pf-l-flex pf-m-column pf-u-h-100 pf-m-space-items-sm"
+                        >
+                          <div
+                            class="pf-l-flex pf-m-space-items-sm pf-m-column-on-md pf-m-row-on-lg pf-m-spacer-md-on-md pf-m-spacer-sm-on-lg"
+                          >
+                            <div class="pf-c-label-group">
+                              <div class="pf-c-label-group__main">
+                                <ul
+                                  class="pf-c-label-group__list"
+                                  role="list"
+                                  aria-label="Group of labels"
+                                >
+                                  <li class="pf-c-label-group__list-item">
+                                    <span
+                                      class="pf-c-label pf-m-blue pf-m-outline"
+                                    >
+                                      <span class="pf-c-label__content">
+                                        <span class="pf-c-label__icon">
+                                          <i
+                                            class="fas fa-cube"
+                                            aria-hidden="true"
+                                          ></i>
+                                        </span>
+                                        Stablility
+                                      </span>
+                                    </span>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="pf-l-flex pf-m-space-items-sm pf-m-column-on-md pf-m-row-on-lg pf-m-spacer-md-on-md pf-m-spacer-sm-on-lg">
+                            <p>Warnings and Alarms</p>
+                          </div>
+                          <div class="pf-l-flex__item pf-m-spacer-md">                            
+                            <div class="pf-c-label-group">                              
+                              <div class="pf-c-label-group__main">
+                                <ul
+                                  class="pf-c-label-group__list"
+                                  role="list"
+                                  aria-label="Group of labels"
+                                >
+                                  <li class="pf-c-label-group__list-item">
+                                    <span class="pf-c-label pf-m-red">
+                                      <span class="pf-c-label__content">
+                                        <span class="pf-c-label__icon">
+                                          <i
+                                            class="fas fa-fw fa-exclamation-circle"
+                                            aria-hidden="true"
+                                          ></i>
+                                        </span>
+                                        1
+                                      </span>
+                                    </span>
+                                  </li>
+                                  <li class="pf-c-label-group__list-item">
+                                    <span class="pf-c-label pf-m-orange">
+                                      <span class="pf-c-label__content">
+                                        <span class="pf-c-label__icon">
+                                          <i
+                                            class="fas fa-fw fa-exclamation-triangle"
+                                            aria-hidden="true"
+                                          ></i>
+                                        </span>
+                                        3
+                                      </span>
+                                    </span>
+                                  </li>
+                                  <li class="pf-c-label-group__list-item">
+                                    <span class="pf-c-label pf-m-green">
+                                      <span class="pf-c-label__content">
+                                        <span class="pf-c-label__icon">
+                                          <i
+                                            class="fas fa-fw fa-check-circle"
+                                            aria-hidden="true"
+                                          ></i>
+                                        </span>
+                                        3
+                                      </span>
+                                    </span>
+                                  </li>
+                                  <li class="pf-c-label-group__list-item">
+                                    <span class="pf-c-label pf-m-blue">
+                                      <span class="pf-c-label__content">
+                                        <span class="pf-c-label__icon">
+                                          <i
+                                            class="fas fa-fw fa-info-circle"
+                                            aria-hidden="true"
+                                          ></i>
+                                        </span>
+                                        3
+                                      </span>
+                                    </span>
+                                  </li>
+                                  <li class="pf-c-label-group__list-item">
+                                    <span class="pf-c-label pf-m-cyan">
+                                      <span class="pf-c-label__content">
+                                        <span class="pf-c-label__icon">
+                                          <i
+                                            class="fas fa-fw fa-bell"
+                                            aria-hidden="true"
+                                          ></i>
+                                        </span>
+                                        3
+                                      </span>
+                                    </span>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <hr class="pf-c-divider pf-m-vertical-on-md pf-m-inset-3xl" />
+                  <div
+                    class="pf-l-flex pf-m-flex-1 pf-m-align-self-stretch pf-m-align-items-stretch"
+                  >
+                    <div class="pf-c-card pf-m-plain">
+                      <div class="pf-c-card__body">
+                        <div
+                          class="pf-l-flex pf-m-column pf-u-h-100 pf-m-space-items-sm"
+                        >
+                          <div
+                            class="pf-l-flex pf-m-space-items-sm pf-m-column-on-md pf-m-row-on-lg pf-m-spacer-md-on-md pf-m-spacer-sm-on-lg"
+                          >
+                            <div class="pf-c-label-group">
+                              <div class="pf-c-label-group__main">
+                                <ul
+                                  class="pf-c-label-group__list"
+                                  role="list"
+                                  aria-label="Group of labels"
+                                >
+                                  <li class="pf-c-label-group__list-item">
+                                    <span
+                                      class="pf-c-label pf-m-blue pf-m-outline"
+                                    >
+                                      <span class="pf-c-label__content">
+                                        <span class="pf-c-label__icon">
+                                          <i
+                                            class="fas fa-fw fa-filter"
+                                            aria-hidden="true"
+                                          ></i>
+                                        </span>
+                                        Image processed
+                                      </span>
+                                    </span>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                            <a href="#">166 images</a>
+                          </div>
+                          <div class="pf-l-flex__item pf-m-spacer-md">
+                            <img src="./images/chart.png"/>                          
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pf-c-card pf-m-expanded">
+              <div class="pf-c-card" id="dashboard-demo-data-list-card-1">
+                <div class="pf-c-card__header pf-u-align-items-flex-start">
+                  <div
+                    class="pf-c-card__title"
+                    id="dashboard-demo-data-list-card-1-title1"
+                  >
+                    <h2 class="pf-c-title pf-m-lg">Inventory</h2>
+                  </div>
+                </div>
+                <ul
+                  class="pf-c-data-list pf-m-grid-none"
+                  role="list"
+                  aria-label="Simple data list example"
+                  id="dashboard-demo-data-list-card-1-data-list"
+                >
+                  <li
+                    class="pf-c-data-list__item"
+                    aria-labelledby="dashboard-demo-data-list-card-1-data-list-item-1"
+                  >
+                    <div class="pf-c-data-list__item-row">
+                      <div class="pf-c-data-list__item-content">
+                        <div
+                          class="pf-c-data-list__cell"
+                          id="dashboard-demo-data-list-card-1-data-list-item-1"
+                        >3 Nodes</div>
+                        <div
+                          class="pf-c-data-list__cell pf-m-no-fill pf-m-align-right"
+                        >
+                          <a href="#">
+                            <div class="pf-l-flex pf-m-space-items-sm">
+                              <span>3</span>
+                              <i
+                                class="fas fa-check-circle pf-u-success-color-100"
+                                aria-hidden="true"
+                              ></i>
+                            </div>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li
+                    class="pf-c-data-list__item"
+                    aria-labelledby="dashboard-demo-data-list-card-1-data-list-item-2"
+                  >
+                    <div class="pf-c-data-list__item-row">
+                      <div class="pf-c-data-list__item-content">
+                        <div
+                          class="pf-c-data-list__cell"
+                          id="dashboard-demo-data-list-card-1-data-list-item-2"
+                        >8 Disks</div>
+                        <div
+                          class="pf-c-data-list__cell pf-m-no-fill pf-m-align-right"
+                        >
+                          <a href="#">
+                            <div class="pf-l-flex pf-m-space-items-sm">
+                              <span>8</span>
+                              <i
+                                class="fas fa-check-circle pf-u-success-color-100"
+                                aria-hidden="true"
+                              ></i>
+                            </div>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li
+                    class="pf-c-data-list__item"
+                    aria-labelledby="dashboard-demo-data-list-card-1-data-list-item-3"
+                  >
+                    <div class="pf-c-data-list__item-row">
+                      <div class="pf-c-data-list__item-content">
+                        <div
+                          class="pf-c-data-list__cell"
+                          id="dashboard-demo-data-list-card-1-data-list-item-3"
+                        >20 Pods</div>
+                        <div
+                          class="pf-c-data-list__cell pf-m-no-fill pf-m-align-right"
+                        >
+                          <a href="#">
+                            <div class="pf-l-flex pf-m-space-items-sm">
+                              <span>20</span>
+                              <i
+                                class="fas fa-check-circle pf-u-success-color-100"
+                                aria-hidden="true"
+                              ></i>
+                            </div>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li
+                    class="pf-c-data-list__item"
+                    aria-labelledby="dashboard-demo-data-list-card-1-data-list-item-4"
+                  >
+                    <div class="pf-c-data-list__item-row">
+                      <div class="pf-c-data-list__item-content">
+                        <div
+                          class="pf-c-data-list__cell"
+                          id="dashboard-demo-data-list-card-1-data-list-item-4"
+                        >12 PVs</div>
+                        <div
+                          class="pf-c-data-list__cell pf-m-no-fill pf-m-align-right"
+                        >
+                          <a href="#">
+                            <div class="pf-l-flex pf-m-space-items-sm">
+                              <span>12</span>
+                              <i
+                                class="fas fa-check-circle pf-u-success-color-100"
+                                aria-hidden="true"
+                              ></i>
+                            </div>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li
+                    class="pf-c-data-list__item"
+                    aria-labelledby="dashboard-demo-data-list-card-1-data-list-item-5"
+                  >
+                    <div class="pf-c-data-list__item-row">
+                      <div class="pf-c-data-list__item-content">
+                        <div
+                          class="pf-c-data-list__cell"
+                          id="dashboard-demo-data-list-card-1-data-list-item-5"
+                        >18 PVCs</div>
+                        <div
+                          class="pf-c-data-list__cell pf-m-no-fill pf-m-align-right"
+                        >
+                          <a href="#">
+                            <div class="pf-l-flex pf-m-space-items-sm">
+                              <span>18</span>
+                              <i
+                                class="fas fa-check-circle pf-u-success-color-100"
+                                aria-hidden="true"
+                              ></i>
+                            </div>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>  
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <!-- <script type="module" src="chart.js"></script> -->
+
+  <script>
+    var margin = {top: 30, right: 0, bottom: 10, left: 30},
+    width = 320 - margin.left - margin.right,
+    height = 100 - margin.top - margin.bottom;
+
+    const svg = d3.select("#messageCountChart").append("svg");
+
+    d3.csv("aapl.csv",
+    // When reading the csv, I must format variables:
+    function(d){
+      return { date : d3.timeParse("%Y-%m-%d")(d.date), value : d.close }
+    },
+
+    // Now I can use this dataset:
+    function(data) {
+
+      // Add X axis --> it is a date format
+      var x = d3.scaleTime()
+        .domain(d3.extent(data, function(d) { return d.date; }))
+        .range([ 0, width ]);
+      // svg.append("g")
+      //   .attr("transform", "translate(0," + height + ")")
+      //   .call(d3.axisBottom(x));
+
+      // Add Y axis
+      var y = d3.scaleLinear()
+        .domain([0, d3.max(data, function(d) { return +d.value; })])
+        .range([ height, 0 ]);
+      // svg.append("g")
+      //   .call(d3.axisLeft(y));
+
+      // Ad the area  
+      svg.append("path")
+        .datum(data)
+        .attr("fill", "lightblue")
+        // .attr("stroke", "steelblue")
+        // .attr("stroke-width", 1.5)
+
+        .attr("d", d3.area()
+          .x(function(d) { return x(d.date) })
+          .y0(function(d) { return height })
+          .y1(function(d) { return y(d.value) })
+          );
+
+      // Add the line
+      svg.append("path")
+        .datum(data)
+        .attr("fill", "none")
+        .attr("stroke", "steelblue")
+        .attr("stroke-width", 1.5)
+        .attr("d", d3.line()
+          .x(function(d) { return x(d.date) })
+          .y(function(d) { return y(d.value) })
+          );
+
+    })
+
+    // svg
+    //   .append('circle')
+    //   .attr('cx','50%')
+    //   .attr('cy','50%')
+    //   .attr('r','75')
+    //   .style('fill','red');
+
+  </script>
+</body>
+</html>
+        
