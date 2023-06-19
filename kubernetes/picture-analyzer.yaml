@@ -5,7 +5,7 @@ metadata:
   labels:
     app: picture-analyzer
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: picture-analyzer
@@ -17,20 +17,20 @@ spec:
     spec:
       containers:
         - name: picture-analyzer
-          image: quay.io/cescoffi/devnation-2023-picture-analyzer
+          image: quay.io/cescoffi/devnation-2023-picture-analyzer:latest
           ports:
             - containerPort: 8080
               protocol: TCP
           resources:
             limits:
               cpu: 1000m
-              memory: 6000Mi
+              memory: 3000Mi
             requests:
               cpu: 500m
-              memory: 5000Mi
+              memory: 2200Mi
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       dnsPolicy: ClusterFirst
