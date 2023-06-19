@@ -45,6 +45,7 @@
         <module>camera-sensor</module>
         <module>alert-manager</module>
         <module>dashboard</module>
+        <module>kafka-topic-initializer</module>
     </modules>
 
 </project>
