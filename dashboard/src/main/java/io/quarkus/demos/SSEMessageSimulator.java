@@ -27,7 +27,7 @@ public class SSEMessageSimulator {
     @Path("/message-stats")
     @RestStreamElementType(MediaType.APPLICATION_JSON)
     public Multi<MessageStats> streamMessageStats() {
-        return Multi.createFrom().ticks().every(Duration.ofSeconds(2)).map(SSEMessageSimulator::randomEvent);
+        return Multi.createFrom().ticks().every(Duration.ofSeconds(1)).map(SSEMessageSimulator::randomEvent);
     }
 
     public static MessageStats randomEvent(Long id) {
