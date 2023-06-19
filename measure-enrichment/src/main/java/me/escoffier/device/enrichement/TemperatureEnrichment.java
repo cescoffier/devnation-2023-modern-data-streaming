@@ -1,8 +1,9 @@
-package me.escoffier.devce.enrichement;
+package me.escoffier.device.enrichement;
 
 import io.smallrye.common.annotation.Blocking;
 import io.smallrye.reactive.messaging.kafka.Record;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.transaction.Transactional;
 import me.escoffier.device.Temperature;
 import me.escoffier.device.TemperatureWithLocation;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
@@ -14,6 +15,7 @@ public class TemperatureEnrichment {
     @Incoming("temperatures")
     @Outgoing("enriched-temperatures")
     @Blocking
+    @Transactional
     Record<String, TemperatureWithLocation> enrich(Temperature temperature) {
         String location = lookup(temperature.deviceId);
         return Record.of(temperature.deviceId, new TemperatureWithLocation(temperature, location));

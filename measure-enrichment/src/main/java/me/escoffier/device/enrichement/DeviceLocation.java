@@ -1,4 +1,4 @@
-package me.escoffier.devce.enrichement;
+package me.escoffier.device.enrichement;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;

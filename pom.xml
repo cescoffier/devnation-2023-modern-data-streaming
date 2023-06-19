@@ -21,7 +21,7 @@
 
         <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
         <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
-        <quarkus.platform.version>3.1.1.Final</quarkus.platform.version>
+        <quarkus.platform.version>3.1.2.Final</quarkus.platform.version>
 
         <skipITs>true</skipITs>
     </properties>
@@ -42,6 +42,7 @@
         <module>models</module>
         <module>temperature-sensor</module>
         <module>measure-enrichment</module>
+        <module>camera-sensor</module>
         <module>alert-manager</module>
         <module>dashboard</module>
     </modules>

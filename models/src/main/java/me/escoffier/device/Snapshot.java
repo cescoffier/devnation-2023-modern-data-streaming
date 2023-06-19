@@ -4,21 +4,21 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
-public class Temperature {
+public class Snapshot {
 
     public final String deviceId;
-    public final double value;
     public final ZonedDateTime timestamp;
+    public final byte[] picture;
 
-    public Temperature() {
+    public Snapshot() {
         deviceId = null;
-        value = Double.MIN_VALUE;
         timestamp = null;
+        picture = null;
     }
 
-    public Temperature(String deviceId, double value) {
+    public Snapshot(String deviceId, byte[] picture) {
         this.deviceId = deviceId;
-        this.value = value;
         this.timestamp = LocalDateTime.now().atZone(ZoneId.of("UTC"));
+        this.picture = picture;
     }
 }

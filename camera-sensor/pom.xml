@@ -10,7 +10,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>temperature-sensor</artifactId>
+    <artifactId>camera-sensor</artifactId>
 
     <dependencies>
         <dependency>
@@ -18,6 +18,10 @@
             <artifactId>quarkus-smallrye-reactive-messaging-kafka</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-container-image-jib</artifactId>
@@ -38,12 +42,6 @@
             <artifactId>models</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-test-kafka-companion</artifactId>
-            <scope>test</scope>
         </dependency>
     </dependencies>
     <build>

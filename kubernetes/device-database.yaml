@@ -43,8 +43,7 @@ spec:
     spec:
       volumes:
         - name: device-database-data
-          persistentVolumeClaim:
-            claimName: device-database
+          emptyDir: {}
       containers:
         - resources:
             limits:
@@ -98,7 +97,7 @@ spec:
               mountPath: /var/lib/pgsql/data
           terminationMessagePolicy: File
           image: >-
-            image-registry.openshift-image-registry.svc:5000/openshift/postgresql@sha256:5db804ee8fc286e8f82163a232ed36303a81d62daf450e1b09b3c18a5bccde82
+            image-registry.openshift-image-registry.svc:5000/openshift/postgresql@sha256:092c67ff11bff5af0916d194923ba031fd4084c713d9558da8d3b79bed5c02bb
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       dnsPolicy: ClusterFirst

@@ -1,0 +1,30 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: camera-sensor-c-0007
+spec:
+  containers:
+    - name: sensor
+      image: quay.io/cescoffi/devnation-2023-camera-sensor:1.0-SNAPSHOT
+      imagePullPolicy: IfNotPresent
+      env:
+        - name: DEVICE_ID
+          value: "c-0007"
+        - name: DEVICE_MISBEHAVIOR
+          value: "true"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: camera-sensor-c-0008
+spec:
+  containers:
+    - name: sensor
+      image: quay.io/cescoffi/devnation-2023-camera-sensor:1.0-SNAPSHOT
+      imagePullPolicy: IfNotPresent
+      env:
+        - name: DEVICE_ID
+          value: "c-0008"
+        - name: DEVICE_MISBEHAVIOR
+          value: "true"

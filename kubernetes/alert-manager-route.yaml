@@ -1,0 +1,21 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: alert-manager
+  labels:
+    app.kubernetes.io/managed-by: quarkus
+    app.kubernetes.io/name: devnation-2023-alert-manager
+    app.kubernetes.io/version: 1.0-SNAPSHOT
+  annotations:
+    openshift.io/host.generated: 'true'
+spec:
+  to:
+    kind: Service
+    name: devnation-2023-alert-manager
+    weight: 100
+  port:
+    targetPort: http
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None
