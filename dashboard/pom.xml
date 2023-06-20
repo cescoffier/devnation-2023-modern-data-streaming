@@ -3,19 +3,17 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-      <groupId>me.escoffier</groupId>
-      <artifactId>devnation-mda-modern-data-streaming-parent</artifactId>
-      <version>1.0-SNAPSHOT</version>
+    <groupId>me.escoffier</groupId>
+    <artifactId>devnation-mda-modern-data-streaming-parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
   </parent>
   <artifactId>dashboard</artifactId>
-
-  
   <dependencies>
     <dependency>
-        <groupId>me.escoffier</groupId>
-        <artifactId>models</artifactId>
-        <version>1.0-SNAPSHOT</version>
-        <scope>compile</scope>
+      <groupId>me.escoffier</groupId>
+      <artifactId>models</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
@@ -28,6 +26,10 @@
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-resteasy-reactive-jackson</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-container-image-jib</artifactId>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
