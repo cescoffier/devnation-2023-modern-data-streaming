@@ -29,6 +29,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: device-database
+  labels:
+    app.kubernetes.io/part-of: enrichment
 spec:
   strategy:
     type: Recreate

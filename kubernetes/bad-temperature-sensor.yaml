@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: camera-sensor-c-0007
+  name: temperature-sensor-t-0010
   labels:
     app.kubernetes.io/part-of: sensors
     app.openshift.io/runtime: java
@@ -11,18 +11,19 @@ metadata:
 spec:
   containers:
     - name: sensor
-      image: quay.io/cescoffi/devnation-2023-camera-sensor:1.0-SNAPSHOT
+      image: quay.io/cescoffi/devnation-2023-temperature-sensor:1.0-SNAPSHOT
       imagePullPolicy: IfNotPresent
       env:
         - name: DEVICE_ID
-          value: "c-0007"
+          value: "t-0010"
         - name: DEVICE_MISBEHAVIOR
           value: "true"
+
 ---
 apiVersion: v1
 kind: Pod
 metadata:
-  name: camera-sensor-c-0008
+  name: temperature-sensor-t-0011
   labels:
     app.kubernetes.io/part-of: sensors
     app.openshift.io/runtime: java
@@ -31,10 +32,11 @@ metadata:
 spec:
   containers:
     - name: sensor
-      image: quay.io/cescoffi/devnation-2023-camera-sensor:1.0-SNAPSHOT
+      image: quay.io/cescoffi/devnation-2023-temperature-sensor:1.0-SNAPSHOT
       imagePullPolicy: IfNotPresent
       env:
         - name: DEVICE_ID
-          value: "c-0008"
+          value: "t-0011"
         - name: DEVICE_MISBEHAVIOR
           value: "true"
+---

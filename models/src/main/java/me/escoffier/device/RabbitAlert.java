@@ -1,4 +1,4 @@
 package me.escoffier.device;
 
-public record RabbitAlert(String location) {
+public record RabbitAlert(String location, byte[] snapshot) {
 }

@@ -8,16 +8,22 @@ import me.escoffier.device.TemperatureAlert;
 import org.eclipse.microprofile.reactive.messaging.Channel;
 import org.jboss.resteasy.reactive.RestStreamElementType;
 
+import java.time.Duration;
+
 @Path("temperatures")
 public class TemperatureAlertResource {
 
-    //TODO PING!
-    @Channel("temperature-alerts") Multi<TemperatureAlert> alerts;
+    @Channel("temperature-alerts")
+    Multi<TemperatureAlert> alerts;
 
     @GET
     @RestStreamElementType(MediaType.APPLICATION_JSON)
     public Multi<TemperatureAlert> stream() {
-        return alerts;
+        return
+                Multi.createBy().merging().streams(
+                        Multi.createFrom().ticks().every(Duration.ofSeconds(10))
+                                .map(l -> new TemperatureAlert(null, null, -1)),
+                        alerts);
     }
 
 

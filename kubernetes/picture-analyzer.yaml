@@ -1,11 +1,28 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: prediction-service
+spec:
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+      name: http
+  type: ClusterIP
+  selector:
+    app: picture-analyzer
+---
 kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: picture-analyzer
   labels:
     app: picture-analyzer
+    app.kubernetes.io/part-of: alert-manager
+    app.openshift.io/runtime:  python
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: picture-analyzer

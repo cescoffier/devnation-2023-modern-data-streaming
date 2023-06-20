@@ -1,6 +1,7 @@
 package me.escoffier.alert;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import me.escoffier.device.TemperatureAlert;
 import me.escoffier.device.TemperatureWithLocation;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
@@ -12,19 +13,19 @@ import java.util.Map;
 @ApplicationScoped
 public class TemperatureAlertManager {
 
-    Map<String, Double> last = new HashMap<>();
+    @Inject
+    PredictionAndMessageCounter counter;
 
     @Incoming("enriched-temperatures")
     @Outgoing("temperature-alerts")
     TemperatureAlert detect(TemperatureWithLocation temperature) {
+        counter.inc("enriched-temperatures");
         // Detect abnormal variations for a specific device.
-        var lastValue = last.getOrDefault(temperature.deviceId, temperature.value);
-        if (Math.abs(lastValue - temperature.value) > 5.0) {
+        if (temperature.value > 30 || temperature.value < 10) {
             // Something wrong is happening.
+            counter.inc("temperature-alerts");
             return new TemperatureAlert(temperature.deviceId, temperature.location, temperature.value);
         }
         return null;
     }
-
-
 }

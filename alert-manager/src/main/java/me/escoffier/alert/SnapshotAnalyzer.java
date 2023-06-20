@@ -1,8 +1,9 @@
 package me.escoffier.alert;
 
-import io.smallrye.common.annotation.Blocking;
 import io.smallrye.mutiny.Multi;
+import io.smallrye.reactive.messaging.annotations.Blocking;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import me.escoffier.device.RabbitAlert;
 import me.escoffier.device.SnapshotWithLocation;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
@@ -21,12 +22,19 @@ public class SnapshotAnalyzer {
     @RestClient
     PredictionService predictions;
 
-    record Snapshots(List<SnapshotWithLocation> list, String location) {};
+    @Inject
+    PredictionAndMessageCounter counter;
+
+    record Snapshots(List<SnapshotWithLocation> list, String location) {
+    }
+
+    ;
 
     @Incoming("enriched-snapshots")
     @Outgoing("grouped-snapshots")
     public Multi<Snapshots> detect(Multi<SnapshotWithLocation> snapshot) {
         return snapshot
+                .invoke(() -> counter.inc("enriched-snapshots"))
                 .group().by(s -> s.location) // KeyedMulti once we use 3.2
                 .flatMap(group -> {
                     String location = group.key();
@@ -38,19 +46,26 @@ public class SnapshotAnalyzer {
 
     @Incoming("grouped-snapshots")
     @Outgoing("rabbit-alerts")
-    @Blocking
+    @Blocking(ordered = false)
     public RabbitAlert analyze(Snapshots snapshots) {
-        if (containsTooManyRabbits(snapshots.list())) {
-            return new RabbitAlert(snapshots.location());
+        var containRabbits = containsTooManyRabbits(snapshots.list());
+        if (containRabbits != null) {
+            counter.inc("rabbit-alerts");
+            return new RabbitAlert(snapshots.location(), containRabbits.picture);
         }
         return null;
     }
 
-    private boolean containsTooManyRabbits(List<SnapshotWithLocation> snapshots) {
-        return snapshots.stream()
-                .map(s -> predictions.analyze(new PredictionService.PredictionRequest(s.picture)))
-                .map(pr -> extractObjects(pr))
-                .anyMatch(s -> s.contains("Rabbit"));
+    private SnapshotWithLocation containsTooManyRabbits(List<SnapshotWithLocation> snapshots) {
+        for (SnapshotWithLocation snapshot : snapshots) {
+            counter.inc("predictions");
+            var res = predictions.analyze(new PredictionService.PredictionRequest(snapshot.picture));
+            var objects = extractObjects(res);
+            if (objects.contains("Rabbit")) {
+                return snapshot;
+            }
+        }
+        return null;
     }
 
 
