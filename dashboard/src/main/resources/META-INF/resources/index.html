@@ -114,7 +114,9 @@
                                   </li>
                                 </ul>
                               </div>
+                              
                             </div>
+                            <a id="MessageCountCurrentVolume" href="#"></a>
                           </div>                          
                           <div class="pf-l-flex__item pf-m-spacer-md">
                             <div id="messageCountChart"></div>                          
@@ -181,7 +183,7 @@
                                             aria-hidden="true"
                                           ></i>
                                         </span>
-                                        1
+                                        <span id="criticalCount"></span>
                                       </span>
                                     </span>
                                   </li>
@@ -194,7 +196,7 @@
                                             aria-hidden="true"
                                           ></i>
                                         </span>
-                                        3
+                                        <span id="warningCount"></span>
                                       </span>
                                     </span>
                                   </li>
@@ -207,33 +209,7 @@
                                             aria-hidden="true"
                                           ></i>
                                         </span>
-                                        3
-                                      </span>
-                                    </span>
-                                  </li>
-                                  <li class="pf-c-label-group__list-item">
-                                    <span class="pf-c-label pf-m-blue">
-                                      <span class="pf-c-label__content">
-                                        <span class="pf-c-label__icon">
-                                          <i
-                                            class="fas fa-fw fa-info-circle"
-                                            aria-hidden="true"
-                                          ></i>
-                                        </span>
-                                        3
-                                      </span>
-                                    </span>
-                                  </li>
-                                  <li class="pf-c-label-group__list-item">
-                                    <span class="pf-c-label pf-m-cyan">
-                                      <span class="pf-c-label__content">
-                                        <span class="pf-c-label__icon">
-                                          <i
-                                            class="fas fa-fw fa-bell"
-                                            aria-hidden="true"
-                                          ></i>
-                                        </span>
-                                        3
+                                        <span id="informationCount"></span>
                                       </span>
                                     </span>
                                   </li>
@@ -282,11 +258,11 @@
                                 </ul>
                               </div>
                             </div>
-                            <a href="#">166 images</a>
+                            <a id="imageProcessedCount" href="#"></a>
                           </div>
                           <div class="pf-l-flex__item pf-m-spacer-md">
-                            <img src="./images/chart.png"/>                          
-                          </div>
+                            <div id="imageProcessChart"></div>                          
+                          </div>  
                         </div>
                       </div>
                     </div>
