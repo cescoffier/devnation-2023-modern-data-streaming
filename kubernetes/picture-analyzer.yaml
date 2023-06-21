@@ -34,7 +34,7 @@ spec:
     spec:
       containers:
         - name: picture-analyzer
-          image: quay.io/cescoffi/devnation-2023-picture-analyzer:latest
+          image: quay.io/devnation/devnation-2023-picture-analyzer:latest
           ports:
             - containerPort: 8080
               protocol: TCP

@@ -1,5 +1,5 @@
-FROM registry.access.redhat.com/ubi8/python-39
-LABEL "io.k8s.display-name"="quay.io/cescoffi/devnation-2023-picture-analyzer" \
+FROM registry.access.redhat.com/ubi8/python-39:1-120.1684740828
+LABEL "io.k8s.display-name"="quay.io/devnation/devnation-2023-picture-analyzer" \
       "io.openshift.s2i.build.image"="registry.access.redhat.com/ubi8/python-39" \
       "io.openshift.s2i.build.source-location"="."
 ENV APP_CONFIG="gunicorn_config.py"

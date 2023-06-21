@@ -11,7 +11,7 @@ metadata:
 spec:
   containers:
     - name: sensor
-      image: quay.io/cescoffi/devnation-2023-temperature-sensor:1.0-SNAPSHOT
+      image: quay.io/devnation/devnation-2023-temperature-sensor:1.0-SNAPSHOT
       imagePullPolicy: IfNotPresent
       env:
         - name: DEVICE_ID
@@ -32,7 +32,7 @@ metadata:
 spec:
   containers:
     - name: sensor
-      image: quay.io/cescoffi/devnation-2023-temperature-sensor:1.0-SNAPSHOT
+      image: quay.io/devnation/devnation-2023-temperature-sensor:1.0-SNAPSHOT
       imagePullPolicy: IfNotPresent
       env:
         - name: DEVICE_ID
