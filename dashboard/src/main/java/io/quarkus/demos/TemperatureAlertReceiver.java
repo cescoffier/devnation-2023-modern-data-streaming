@@ -13,11 +13,12 @@ import org.jboss.logging.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 @ApplicationScoped
 public class TemperatureAlertReceiver {
 
-    private final List<TemperatureAlert> temperatureAlertList = new ArrayList<>();
+    private final List<TemperatureAlert> temperatureAlertList = new CopyOnWriteArrayList<>();
 
     @ConfigProperty(name="dashboard.alert-manager.url")
     String alertManagerBaseUrl;

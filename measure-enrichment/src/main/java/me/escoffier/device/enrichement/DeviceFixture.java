@@ -23,6 +23,8 @@ public class DeviceFixture {
         create(Device.Kind.THERMOMETER, "t-0008", "Stockholm").persist();
         create(Device.Kind.THERMOMETER, "t-0009", "Paris").persist();
         create(Device.Kind.THERMOMETER, "t-0010", "Stockholm").persist();
+        create(Device.Kind.THERMOMETER, "t-0011", "Berlin").persist();
+
 
         create(Device.Kind.CAMERA, "c-0001", "Stockholm").persist();
         create(Device.Kind.CAMERA, "c-0002", "Paris").persist();

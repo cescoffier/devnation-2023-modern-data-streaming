@@ -16,11 +16,12 @@ import org.jboss.logging.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 @ApplicationScoped
 public class RabbitAlertReceiver {
 
-    private final List<RabbitAlert> rabbitAlertList = new ArrayList<>();
+    private final List<RabbitAlert> rabbitAlertList = new CopyOnWriteArrayList<>();
 
     @ConfigProperty(name="dashboard.alert-manager.url")
     String alertManagerBaseUrl;
