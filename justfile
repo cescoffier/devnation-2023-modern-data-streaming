@@ -13,7 +13,6 @@ build-and-push-images: quick
     cd dashboard && quarkus build --clean -Dquarkus.container-image.push=true -DskipTests
     cd picture-analyzer  && docker buildx build --platform=linux/amd64 -t quay.io/cescoffi/devnation-2023-picture-analyzer .  && docker push quay.io/cescoffi/devnation-2023-picture-analyzer
 
-
 kube-prerequisites:
     kubectl apply -f kubernetes/kafka.yaml -f kubernetes/device-database.yaml -f kubernetes/alert-manager-route.yaml -f kubernetes/picture-analyzer.yaml -f kubernetes/dashboard-route.yaml
     kubectl wait pods -l name=kafka --for condition=Ready --timeout=90s
