@@ -30,6 +30,7 @@ kind: Deployment
 metadata:
   name: device-database
   labels:
+    app: device-database
     app.kubernetes.io/part-of: enrichment
 spec:
   strategy:

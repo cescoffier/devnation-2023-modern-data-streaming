@@ -1,4 +1,4 @@
-package me.escoffier.alert;
+package me.escoffier.alert.http;
 
 import io.smallrye.mutiny.Multi;
 import jakarta.ws.rs.GET;

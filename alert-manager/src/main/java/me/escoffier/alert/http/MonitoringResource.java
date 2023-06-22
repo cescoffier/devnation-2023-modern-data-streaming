@@ -1,8 +1,9 @@
-package me.escoffier.alert;
+package me.escoffier.alert.http;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
+import me.escoffier.alert.PredictionAndMessageCounter;
 import me.escoffier.device.Counters;
 
 @Path("/monitoring")

@@ -2,6 +2,8 @@ package me.escoffier.alert;
 
 import io.smallrye.mutiny.Multi;
 import io.smallrye.reactive.messaging.annotations.Blocking;
+import io.smallrye.reactive.messaging.keyed.Keyed;
+import io.smallrye.reactive.messaging.keyed.KeyedMulti;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import me.escoffier.device.RabbitAlert;
@@ -28,20 +30,14 @@ public class SnapshotAnalyzer {
     record Snapshots(List<SnapshotWithLocation> list, String location) {
     }
 
-    ;
 
     @Incoming("enriched-snapshots")
     @Outgoing("grouped-snapshots")
-    public Multi<Snapshots> detect(Multi<SnapshotWithLocation> snapshot) {
+    public Multi<Snapshots> detect(@Keyed(PerLocation.class) KeyedMulti<String, SnapshotWithLocation> snapshot) {
         return snapshot
                 .invoke(() -> counter.inc("enriched-snapshots"))
-                .group().by(s -> s.location) // KeyedMulti once we use 3.2
-                .flatMap(group -> {
-                    String location = group.key();
-                    System.out.println("snapshot from location " + location);
-                    return group.group().intoLists().every(Duration.ofSeconds(5)) // + 0
-                            .map(l -> new Snapshots(l, location));
-                });
+                .group().intoLists().every(Duration.ofSeconds(5))
+                .map(list -> new Snapshots(list, snapshot.key()));
     }
 
     @Incoming("grouped-snapshots")
@@ -51,6 +47,7 @@ public class SnapshotAnalyzer {
         var containRabbits = containsTooManyRabbits(snapshots.list());
         if (containRabbits != null) {
             counter.inc("rabbit-alerts");
+            System.out.println("Producing a rabbit alert for " + snapshots.location());
             return new RabbitAlert(snapshots.location(), containRabbits.picture);
         }
         return null;

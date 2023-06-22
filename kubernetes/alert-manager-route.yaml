@@ -11,7 +11,7 @@ metadata:
 spec:
   to:
     kind: Service
-    name: devnation-2023-alert-manager
+    name: alert-manager
     weight: 100
   port:
     targetPort: http

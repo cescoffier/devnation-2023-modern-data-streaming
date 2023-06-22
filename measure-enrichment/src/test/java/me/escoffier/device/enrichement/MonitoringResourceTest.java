@@ -7,7 +7,6 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.kafka.InjectKafkaCompanion;
 import io.quarkus.test.kafka.KafkaCompanionResource;
 import io.restassured.RestAssured;
-import io.smallrye.mutiny.Multi;
 import io.smallrye.reactive.messaging.kafka.companion.KafkaCompanion;
 import jakarta.inject.Inject;
 import me.escoffier.device.Temperature;
@@ -18,7 +17,6 @@ import org.junit.jupiter.api.Test;
 import java.time.Duration;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
@@ -36,7 +34,7 @@ class MonitoringResourceTest {
 
     @Test
     void test() {
-        counter.setTtl(Duration.ofSeconds(15));
+        counter.setTtl(Duration.ofSeconds(10));
         MonitoringResource.Counters counters = RestAssured.get("/monitoring")
                 .as(MonitoringResource.Counters.class);
         assertThat(counters.numberOfSnapshots()).isZero();
