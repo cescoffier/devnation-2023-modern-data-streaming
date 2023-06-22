@@ -15,7 +15,7 @@ build-and-push-images: quick
 
 
 kube-prerequisites:
-    kubectl apply -f kubernetes/kafka.yaml -f kubernetes/device-database.yaml -f kubernetes/alert-manager-route.yaml -f kubernetes/picture-analyzer.yaml
+    kubectl apply -f kubernetes/kafka.yaml -f kubernetes/device-database.yaml -f kubernetes/alert-manager-route.yaml -f kubernetes/picture-analyzer.yaml -f kubernetes/dashboard-route.yaml
     kubectl wait pods -l name=kafka --for condition=Ready --timeout=90s
     kubectl wait pods -l name=device-database --for condition=Ready --timeout=90s
     kubectl wait pods -l app=picture-analyzer --for condition=Ready --timeout=200s
