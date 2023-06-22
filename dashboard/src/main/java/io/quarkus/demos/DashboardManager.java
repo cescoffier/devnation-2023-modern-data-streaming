@@ -1,5 +1,6 @@
 package io.quarkus.demos;
 
+import io.quarkus.runtime.configuration.ConfigUtils;
 import io.smallrye.mutiny.Multi;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
@@ -48,38 +49,46 @@ public class DashboardManager {
 
 
     @GET
-    @Path("/message-stats")
-    @RestStreamElementType(MediaType.APPLICATION_JSON)
-    public Multi<MessageStats> streamMessageStats() {
-        return Multi.createFrom().ticks().every(Duration.ofSeconds(2)).map(DashboardManager::randomMessageEvent);
-    }
-
-
-    @GET
-    @Path("/image-processed-stats")
-    @RestStreamElementType(MediaType.APPLICATION_JSON)
-    public Multi<ImageProcessedStats> streamImageStats() {
-        return Multi.createFrom().ticks().every(Duration.ofSeconds(2)).map(DashboardManager::randomImageProcessedStats);
-    }
-
-    @GET
     @Path("/stats")
     @RestStreamElementType(MediaType.APPLICATION_JSON)
     public Multi<Counters> streamStats() {
         return Multi.createFrom().ticks().every(Duration.ofSeconds(2)).map( l -> monitoringClient.get());
     }
 
+    @GET
+    @Path("/stats/average-image-processed")
+    @RestStreamElementType(MediaType.APPLICATION_JSON)
+    public Multi<Long> streamImageStats() {
+        if(ConfigUtils.isProfileActive("dev")) {
+            return Multi.createFrom().ticks().every(Duration.ofSeconds(30)).map( l -> Math.round(getRandomAverage(0,40)));
+        } else {
+            return Multi.createFrom().ticks().every(Duration.ofSeconds(30)).map(l -> monitoringClient.get().numberOfPredictions());
+        }
+    }
 
     @GET
-    @Path("/alarms")
+    @Path("/stats/average-temperature-enrichment")
     @RestStreamElementType(MediaType.APPLICATION_JSON)
-    public Multi<List<Alarm>> streamRandomAlerts() {
-        return Multi.createFrom().ticks().every(Duration.ofSeconds(10)).map(DashboardManager::randomListOfAlarms);
+    public Multi<Long> streamTemperatureStats() {
+        if(ConfigUtils.isProfileActive("dev")) {
+            return Multi.createFrom().ticks().every(Duration.ofSeconds(2)).map( l -> Math.round(getRandomAverage(20,500)));
+        } else {
+            return Multi.createFrom().ticks().every(Duration.ofSeconds(2)).map(l -> monitoringClient.get().numberOfEnrichedTemperatures());
+        }
     }
 
 
+
+//    @GET
+//    @Path("/alarms")
+//    @RestStreamElementType(MediaType.APPLICATION_JSON)
+//    public Multi<List<Alarm>> streamRandomAlerts() {
+//        return Multi.createFrom().ticks().every(Duration.ofSeconds(10)).map(DashboardManager::randomListOfAlarms);
+//    }
+
+
     @GET
-    @Path("/rabbits")
+    @Path("/rabbit-alarms")
     @RestStreamElementType(MediaType.APPLICATION_JSON)
     public Multi<List<RabbitAlert>> streamRabbitAlerts() {
         return Multi.createFrom().ticks().every(Duration.ofSeconds(10)).map(l-> {
@@ -88,7 +97,7 @@ public class DashboardManager {
     }
 
     @GET
-    @Path("/temperatures")
+    @Path("/temperature-alarms")
     @RestStreamElementType(MediaType.APPLICATION_JSON)
     public Multi<List<TemperatureAlert>> streamTempAlerts() {
         return Multi.createFrom().ticks().every(Duration.ofSeconds(10)).map(l-> {
@@ -99,28 +108,11 @@ public class DashboardManager {
     @GET
     @Path("/devices")
     public Map<String,List<Device>> devices() {
-        return deviceClient.get().stream().collect(groupingBy(Device::location));
-    }
-
-
-
-
-    public static MessageStats randomMessageEvent(Long id) {
-        MessageStats stat = new MessageStats();
-        stat.setId(id);
-        stat.setTime(LocalDateTime.now());
-        stat.setAvaragePerSecond(getRandomAverage(20,500));
-        stat.setIndex(messageIndex.incrementAndGet());
-
-        return stat;
-    }
-
-    public static ImageProcessedStats randomImageProcessedStats(Long id) {
-        ImageProcessedStats stat = new ImageProcessedStats();
-        stat.setTimestamp(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
-        stat.setTotalProcessed(imagedProcessCount.incrementAndGet());
-        stat.setAverageProcessed(getRandomAverage(5, 30));
-        return stat;
+        if(!ConfigUtils.isProfileActive("dev")) {
+            return deviceClient.get().stream().collect(groupingBy(Device::location));
+        } else {
+            return mockDeviceList().stream().collect(groupingBy(Device::location));
+        }
     }
 
 
@@ -157,11 +149,33 @@ public class DashboardManager {
 
     }
 
+    private List<Device> mockDeviceList() {
+        List<Device> deviceList = new ArrayList<>();
+        deviceList.add(create(Device.Kind.THERMOMETER, "t-0001", "Paris"));
+        deviceList.add(create(Device.Kind.THERMOMETER, "t-0002", "Paris"));
+        deviceList.add(create(Device.Kind.THERMOMETER, "t-0003", "Berlin"));
+        deviceList.add(create(Device.Kind.THERMOMETER, "t-0004", "Stockholm"));
+        deviceList.add(create(Device.Kind.THERMOMETER, "t-0005", "Berlin"));
+        deviceList.add(create(Device.Kind.THERMOMETER, "t-0006", "Berlin"));
+        deviceList.add(create(Device.Kind.THERMOMETER, "t-0007", "Stockholm"));
+        deviceList.add(create(Device.Kind.THERMOMETER, "t-0008", "Stockholm"));
+        deviceList.add(create(Device.Kind.THERMOMETER, "t-0009", "Paris"));
+        deviceList.add(create(Device.Kind.THERMOMETER, "t-0010", "Stockholm"));
 
-
-
-
-
-
+        deviceList.add(create(Device.Kind.CAMERA, "c-0001", "Stockholm"));
+        deviceList.add(create(Device.Kind.CAMERA, "c-0002", "Paris"));
+        deviceList.add(create(Device.Kind.CAMERA, "c-0003", "Stockholm"));
+        deviceList.add(create(Device.Kind.CAMERA, "c-0004", "Stockholm"));
+        deviceList.add(create(Device.Kind.CAMERA, "c-0005", "Paris"));
+        deviceList.add(create(Device.Kind.CAMERA, "c-0006", "Stockholm"));
+        deviceList.add(create(Device.Kind.CAMERA, "c-0007", "Paris"));
+        deviceList.add(create(Device.Kind.CAMERA, "c-0008", "Berlin"));
+        return deviceList;
+    }
     
+    private Device create(Device.Kind kind,String id, String location) {
+        return new Device(kind,id,location);
+    }
+
+
 }

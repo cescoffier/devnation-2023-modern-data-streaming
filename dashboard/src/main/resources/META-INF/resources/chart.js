@@ -38,13 +38,13 @@ console.log(imageProcessedTextItem);
 
 
 // Message stats
-var messagestats = new EventSource("/dashboard/message-stats");
-messagestats.onmessage = function(event) {
-    var message = JSON.parse(event.data);
+var averageTemperatureEvent = new EventSource("/dashboard/stats/average-temperature-enrichment");
+averageTemperatureEvent.onmessage = function(event) {
+    var count = event.data;
 
-    messageCountTextItem.innerText = " " + Math.round(message.avaragePerSecond) + " m/s";
+    messageCountTextItem.innerText = " " + Math.round(count) + " m/s";
     
-    messageStatData.push(message.avaragePerSecond)
+    messageStatData.push(count)
     messageStatData.shift();
     // do stuff based on received message
     updateMessageChart();
@@ -52,40 +52,56 @@ messagestats.onmessage = function(event) {
 }
 
 // Image stats
-var imagestats = new EventSource("/dashboard/image-processed-stats");
+var imagestats = new EventSource("/dashboard/stats/average-image-processed");
 imagestats.onmessage = function(event) {
-  var imagestat = JSON.parse(event.data);
-  imageProcessedTextItem.innerText = " " + Math.round(imagestat.totalProcessed) + " images"
+  var average = event.data;
+  imageProcessedTextItem.innerText = " " + average + " images per minute"
 
-  imageStatData.push(imagestat.averageProcessed);
+  imageStatData.push(average);
   imageStatData.shift();
+
 
   updateImageChart();
 }
 
 
-var alarms = new EventSource("/dashboard/alarms");
-alarms.onmessage = function(event) {
-  var alarmList = JSON.parse(event.data);
-  console.log([alarmList]);
-  // console.log([alarmList].filter(a => a.type==="INFORMATION"));
-  // console.log([alarmList].filter(a => a.type==='WARNING'));
-  // console.log([alarmList].filter(a => a.type==="CRITICAL"));
-  // console.log(alarmList.filter(function(x) { console.log(x.type); return true}))
-  var numberOfCriticalAlarms = alarmList.filter(a => a.type==="CRITICAL").length
-  var numberOfWarnings = alarmList.filter(a => a.type==="WARNING").length
-  var numberOfInformation = alarmList.filter(a => a.type==="INFORMATION").length
+//var alarms = new EventSource("/dashboard/alarms");
+//alarms.onmessage = function(event) {
+//  var alarmList = JSON.parse(event.data);
+//  console.log([alarmList]);
+//  // console.log([alarmList].filter(a => a.type==="INFORMATION"));
+//  // console.log([alarmList].filter(a => a.type==='WARNING'));
+//  // console.log([alarmList].filter(a => a.type==="CRITICAL"));
+//  // console.log(alarmList.filter(function(x) { console.log(x.type); return true}))
+//  var numberOfCriticalAlarms = alarmList.filter(a => a.type==="CRITICAL").length
+//  var numberOfWarnings = alarmList.filter(a => a.type==="WARNING").length
+//  var numberOfInformation = alarmList.filter(a => a.type==="INFORMATION").length
+//
+//
+//  displayCriticalCount.innerText = "" + numberOfCriticalAlarms;
+//  displayWarningCount.innerText = "" + numberOfWarnings;
+//  displayInformationCount.innerText = "" + numberOfInformation;
+//
+//}
 
+var rabbitAlarms = new EventSource("/dashboard/rabbit-alarms");
+rabbitAlarms.onmessage = function(event) {
+    var alarmList = JSON.parse(event.data);
 
-  displayCriticalCount.innerText = "" + numberOfCriticalAlarms;
-  displayWarningCount.innerText = "" + numberOfWarnings;
-  displayInformationCount.innerText = "" + numberOfInformation;
+    if(alarmList.length > 0) {
+        console.log("We have a rabbit alarm");
+        console.log(alarmList);
+    }
+}
 
-  
-  
-  
+var temperatureAlarms = new EventSource("/dashboard/temperature-alarms");
+temperatureAlarms.onmessage = function(event) {
+    var alarmList = JSON.parse(event.data);
 
-
+    if(alarmList.length > 0) {
+        console.log("We have a temperature alarm");
+        console.log(alarmList);
+    }
 }
 
 

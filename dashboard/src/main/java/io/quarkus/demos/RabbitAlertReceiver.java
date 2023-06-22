@@ -1,6 +1,8 @@
 package io.quarkus.demos;
 
+import io.quarkus.runtime.ConfigConfig;
 import io.quarkus.runtime.StartupEvent;
+import io.quarkus.runtime.configuration.ConfigUtils;
 import io.quarkus.scheduler.Scheduled;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Observes;
@@ -26,17 +28,20 @@ public class RabbitAlertReceiver {
     Logger log = Logger.getLogger(RabbitAlertReceiver.class);
 
     public void onStart(@Observes StartupEvent startupEvent) {
+
         Client client = ClientBuilder.newClient();
         WebTarget target = client.target(alertManagerBaseUrl + "/rabbits");
-        try(SseEventSource eventSource = SseEventSource.target(target).build()) {
-            eventSource.register( event -> {
-                RabbitAlert temperatureAlert = event.readData(RabbitAlert.class);
-                if(temperatureAlert.location()!=null) {
-                    rabbitAlertList.add(temperatureAlert);
-                }
-                log.info("Received event " + temperatureAlert);
-            });
-            eventSource.open();
+        if (!ConfigUtils.isProfileActive("dev")) {
+            try(SseEventSource eventSource = SseEventSource.target(target).build()) {
+                eventSource.register( event -> {
+                    RabbitAlert rabbitAlert = event.readData(RabbitAlert.class);
+                    if(rabbitAlert.location()!=null) {
+                        rabbitAlertList.add(rabbitAlert);
+                    }
+                    log.info("Received event " + rabbitAlert);
+                });
+                eventSource.open();
+            }
         }
     }
 
@@ -45,11 +50,16 @@ public class RabbitAlertReceiver {
     }
 
 
-    @Scheduled(every = "10m")
+    @Scheduled(every = "1m")
     void clearAlerts() {
         int size = rabbitAlertList.size();
         rabbitAlertList.clear();
         log.infof("Cleared the alert list of %d alerts",size);
+
+        if (ConfigUtils.isProfileActive("dev")) {
+            RabbitAlert rabbitAlert = new RabbitAlert("Stockholm",null);
+            rabbitAlertList.add(rabbitAlert);
+        }
 
     }
 

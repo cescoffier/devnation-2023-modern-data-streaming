@@ -4,17 +4,17 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="fonts.css" />
+  <link rel="stylesheet" href="/fonts.css" />
   <!-- Include latest PatternFly CSS via CDN -->
   <link 
     rel="stylesheet" 
     href="https://unpkg.com/@patternfly/patternfly/patternfly.css" 
     crossorigin="anonymous"
   >
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="/style.css" />
   <script src="https://d3js.org/d3.v4.js"></script>
 
-  <title>Data Streaming Demo</title>
+  <title>Data Streaming Demo - TEST</title>
 </head>
 <body>
   <div class="pf-c-page" id="dashboard-demo">
@@ -68,28 +68,17 @@
           <div class="pf-l-grid pf-m-gutter">
             <div class="pf-c-card pf-m-expanded">
               <div class="pf-c-card__header">
-                <div
-                  class="pf-c-card__title"
-                  id="dashboard-demo-expandable-status-card-1-title"
-                >
+                <div class="pf-c-card__title" id="dashboard-demo-expandable-status-card-1-title">
                   <h2 class="pf-c-title pf-m-xl">Gages</h2>
                 </div>
               </div>
               <div class="pf-c-card__expandable-content">
                 <div class="pf-l-flex pf-m-column pf-m-row-on-md">
-                  <div
-                    class="pf-l-flex pf-m-flex-1 pf-m-align-self-stretch pf-m-align-items-stretch"
-                  >
+                  <div class="pf-l-flex pf-m-flex-1 pf-m-align-self-stretch pf-m-align-items-stretch">
                     <div class="pf-c-card pf-m-plain">
                       <div class="pf-c-card__body">
-                        
-                        <div
-                          class="pf-l-flex pf-m-column pf-u-h-100 pf-m-space-items-sm"
-                        >
-                          
-                          <div
-                            class="pf-l-flex pf-m-space-items-sm pf-m-column-on-md pf-m-row-on-lg pf-m-spacer-md-on-md pf-m-spacer-sm-on-lg"
-                          >
+                        <div class="pf-l-flex pf-m-column pf-u-h-100 pf-m-space-items-sm">
+                          <div class="pf-l-flex pf-m-space-items-sm pf-m-column-on-md pf-m-row-on-lg pf-m-spacer-md-on-md pf-m-spacer-sm-on-lg">
                             <div class="pf-c-label-group">
                               <div class="pf-c-label-group__main">
                                 <ul
@@ -98,9 +87,7 @@
                                   aria-label="Group of labels"
                                 >
                                   <li class="pf-c-label-group__list-item">
-                                    <span
-                                      class="pf-c-label pf-m-blue pf-m-outline"
-                                    >
+                                    <span class="pf-c-label pf-m-blue pf-m-outline">
                                       <span class="pf-c-label__content">
                                         <span class="pf-c-label__icon">
                                           <i
@@ -114,7 +101,6 @@
                                   </li>
                                 </ul>
                               </div>
-                              
                             </div>
                             <a id="MessageCountCurrentVolume" href="#"></a>
                           </div>                          
@@ -126,17 +112,11 @@
                     </div>
                   </div>
                   <hr class="pf-c-divider pf-m-vertical-on-md pf-m-inset-3xl" />
-                  <div
-                    class="pf-l-flex pf-m-flex-1 pf-m-align-self-stretch pf-m-align-items-stretch"
-                  >
+                  <div class="pf-l-flex pf-m-flex-1 pf-m-align-self-stretch pf-m-align-items-stretch">
                     <div class="pf-c-card pf-m-plain">
                       <div class="pf-c-card__body">
-                        <div
-                          class="pf-l-flex pf-m-column pf-u-h-100 pf-m-space-items-sm"
-                        >
-                          <div
-                            class="pf-l-flex pf-m-space-items-sm pf-m-column-on-md pf-m-row-on-lg pf-m-spacer-md-on-md pf-m-spacer-sm-on-lg"
-                          >
+                        <div class="pf-l-flex pf-m-column pf-u-h-100 pf-m-space-items-sm">
+                          <div class="pf-l-flex pf-m-space-items-sm pf-m-column-on-md pf-m-row-on-lg pf-m-spacer-md-on-md pf-m-spacer-sm-on-lg">
                             <div class="pf-c-label-group">
                               <div class="pf-c-label-group__main">
                                 <ul
@@ -150,12 +130,12 @@
                                     >
                                       <span class="pf-c-label__content">
                                         <span class="pf-c-label__icon">
-                                          <i
-                                            class="fas fa-cube"
-                                            aria-hidden="true"
-                                          ></i>
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-thermometer-half" viewBox="0 0 16 16">
+  <path d="M9.5 12.5a1.5 1.5 0 1 1-2-1.415V6.5a.5.5 0 0 1 1 0v4.585a1.5 1.5 0 0 1 1 1.415z"/>
+  <path d="M5.5 2.5a2.5 2.5 0 0 1 5 0v7.55a3.5 3.5 0 1 1-5 0V2.5zM8 1a1.5 1.5 0 0 0-1.5 1.5v7.987l-.167.15a2.5 2.5 0 1 0 3.333 0l-.166-.15V2.5A1.5 1.5 0 0 0 8 1z"/>
+</svg>
                                         </span>
-                                        Stablility
+                                        Temperature warnings
                                       </span>
                                     </span>
                                   </li>
@@ -164,52 +144,30 @@
                             </div>
                           </div>
                           <div class="pf-l-flex pf-m-space-items-sm pf-m-column-on-md pf-m-row-on-lg pf-m-spacer-md-on-md pf-m-spacer-sm-on-lg">
-                            <p>Warnings and Alarms</p>
+                            <span id="temperatureWarningCount">0</span>&nbsp;Warnings
                           </div>
-                          <div class="pf-l-flex__item pf-m-spacer-md">                            
-                            <div class="pf-c-label-group">                              
+                          <div class="pf-l-flex pf-m-space-items-sm pf-m-column-on-md pf-m-row-on-lg pf-m-spacer-md-on-md pf-m-spacer-sm-on-lg">
+                          </div>
+                          <div class="pf-l-flex pf-m-space-items-sm pf-m-column-on-md pf-m-row-on-lg pf-m-spacer-md-on-md pf-m-spacer-sm-on-lg">
+                            <div class="pf-c-label-group">
                               <div class="pf-c-label-group__main">
                                 <ul
-                                  class="pf-c-label-group__list"
-                                  role="list"
-                                  aria-label="Group of labels"
+                                        class="pf-c-label-group__list"
+                                        role="list"
+                                        aria-label="Group of labels"
                                 >
                                   <li class="pf-c-label-group__list-item">
-                                    <span class="pf-c-label pf-m-red">
+                                    <span
+                                            class="pf-c-label pf-m-blue pf-m-outline"
+                                    >
                                       <span class="pf-c-label__content">
                                         <span class="pf-c-label__icon">
-                                          <i
-                                            class="fas fa-fw fa-exclamation-circle"
-                                            aria-hidden="true"
-                                          ></i>
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-image" viewBox="0 0 16 16">
+  <path d="M8.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+  <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM3 2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v8l-2.083-2.083a.5.5 0 0 0-.76.063L8 11 5.835 9.7a.5.5 0 0 0-.611.076L3 12V2z"/>
+</svg>
                                         </span>
-                                        <span id="criticalCount"></span>
-                                      </span>
-                                    </span>
-                                  </li>
-                                  <li class="pf-c-label-group__list-item">
-                                    <span class="pf-c-label pf-m-orange">
-                                      <span class="pf-c-label__content">
-                                        <span class="pf-c-label__icon">
-                                          <i
-                                            class="fas fa-fw fa-exclamation-triangle"
-                                            aria-hidden="true"
-                                          ></i>
-                                        </span>
-                                        <span id="warningCount"></span>
-                                      </span>
-                                    </span>
-                                  </li>
-                                  <li class="pf-c-label-group__list-item">
-                                    <span class="pf-c-label pf-m-green">
-                                      <span class="pf-c-label__content">
-                                        <span class="pf-c-label__icon">
-                                          <i
-                                            class="fas fa-fw fa-check-circle"
-                                            aria-hidden="true"
-                                          ></i>
-                                        </span>
-                                        <span id="informationCount"></span>
+                                        Images warnings
                                       </span>
                                     </span>
                                   </li>
@@ -217,6 +175,62 @@
                               </div>
                             </div>
                           </div>
+                          <div class="pf-l-flex pf-m-space-items-sm pf-m-column-on-md pf-m-row-on-lg pf-m-spacer-md-on-md pf-m-spacer-sm-on-lg">
+                            <span id="imageWarningCount">0</span>&nbsp;Warnings
+                          </div>
+                          <div class="pf-l-flex pf-m-space-items-sm pf-m-column-on-md pf-m-row-on-lg pf-m-spacer-md-on-md pf-m-spacer-sm-on-lg">
+                          </div>
+<!--                          <div class="pf-l-flex__item pf-m-spacer-md">                            -->
+<!--                            <div class="pf-c-label-group">                              -->
+<!--                              <div class="pf-c-label-group__main">-->
+<!--                                <ul-->
+<!--                                  class="pf-c-label-group__list"-->
+<!--                                  role="list"-->
+<!--                                  aria-label="Group of labels"-->
+<!--                                >-->
+<!--                                  <li class="pf-c-label-group__list-item">-->
+<!--                                    <span class="pf-c-label pf-m-red">-->
+<!--                                      <span class="pf-c-label__content">-->
+<!--                                        <span class="pf-c-label__icon">-->
+<!--                                          <i-->
+<!--                                            class="fas fa-fw fa-exclamation-circle"-->
+<!--                                            aria-hidden="true"-->
+<!--                                          ></i>-->
+<!--                                        </span>-->
+<!--                                        <span id="criticalCount"></span>-->
+<!--                                      </span>-->
+<!--                                    </span>-->
+<!--                                  </li>-->
+<!--                                  <li class="pf-c-label-group__list-item">-->
+<!--                                    <span class="pf-c-label pf-m-orange">-->
+<!--                                      <span class="pf-c-label__content">-->
+<!--                                        <span class="pf-c-label__icon">-->
+<!--                                          <i-->
+<!--                                            class="fas fa-fw fa-exclamation-triangle"-->
+<!--                                            aria-hidden="true"-->
+<!--                                          ></i>-->
+<!--                                        </span>-->
+<!--                                        <span id="warningCount"></span>-->
+<!--                                      </span>-->
+<!--                                    </span>-->
+<!--                                  </li>-->
+<!--                                  <li class="pf-c-label-group__list-item">-->
+<!--                                    <span class="pf-c-label pf-m-green">-->
+<!--                                      <span class="pf-c-label__content">-->
+<!--                                        <span class="pf-c-label__icon">-->
+<!--                                          <i-->
+<!--                                            class="fas fa-fw fa-check-circle"-->
+<!--                                            aria-hidden="true"-->
+<!--                                          ></i>-->
+<!--                                        </span>-->
+<!--                                        <span id="informationCount"></span>-->
+<!--                                      </span>-->
+<!--                                    </span>-->
+<!--                                  </li>-->
+<!--                                </ul>-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                          </div>-->
                         </div>
                       </div>
                     </div>
@@ -274,10 +288,7 @@
             <div class="pf-c-card pf-m-expanded">
               <div class="pf-c-card" id="dashboard-demo-data-list-card-1">
                 <div class="pf-c-card__header pf-u-align-items-flex-start">
-                  <div
-                    class="pf-c-card__title"
-                    id="dashboard-demo-data-list-card-1-title1"
-                  >
+                  <div class="pf-c-card__title" id="dashboard-demo-data-list-card-1-title1">
                     <h2 class="pf-c-title pf-m-lg">Inventory</h2>
                   </div>
                 </div>
@@ -287,6 +298,7 @@
                   aria-label="Simple data list example"
                   id="dashboard-demo-data-list-card-1-data-list"
                 >
+                  {#for location in deviceLocationMap.keySet}
                   <li
                     class="pf-c-data-list__item"
                     aria-labelledby="dashboard-demo-data-list-card-1-data-list-item-1"
@@ -296,13 +308,13 @@
                         <div
                           class="pf-c-data-list__cell"
                           id="dashboard-demo-data-list-card-1-data-list-item-1"
-                        >3 Nodes</div>
+                        >{location} <div class="pf-u-font-size-sm">[{#for device in deviceLocationMap.get(location)}{device.id},{/for}]</div> </div>
                         <div
                           class="pf-c-data-list__cell pf-m-no-fill pf-m-align-right"
                         >
                           <a href="#">
                             <div class="pf-l-flex pf-m-space-items-sm">
-                              <span>3</span>
+                              <span>{deviceLocationMap.get(location).size()}</span>
                               <i
                                 class="fas fa-check-circle pf-u-success-color-100"
                                 aria-hidden="true"
@@ -313,110 +325,7 @@
                       </div>
                     </div>
                   </li>
-                  <li
-                    class="pf-c-data-list__item"
-                    aria-labelledby="dashboard-demo-data-list-card-1-data-list-item-2"
-                  >
-                    <div class="pf-c-data-list__item-row">
-                      <div class="pf-c-data-list__item-content">
-                        <div
-                          class="pf-c-data-list__cell"
-                          id="dashboard-demo-data-list-card-1-data-list-item-2"
-                        >8 Disks</div>
-                        <div
-                          class="pf-c-data-list__cell pf-m-no-fill pf-m-align-right"
-                        >
-                          <a href="#">
-                            <div class="pf-l-flex pf-m-space-items-sm">
-                              <span>8</span>
-                              <i
-                                class="fas fa-check-circle pf-u-success-color-100"
-                                aria-hidden="true"
-                              ></i>
-                            </div>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li
-                    class="pf-c-data-list__item"
-                    aria-labelledby="dashboard-demo-data-list-card-1-data-list-item-3"
-                  >
-                    <div class="pf-c-data-list__item-row">
-                      <div class="pf-c-data-list__item-content">
-                        <div
-                          class="pf-c-data-list__cell"
-                          id="dashboard-demo-data-list-card-1-data-list-item-3"
-                        >20 Pods</div>
-                        <div
-                          class="pf-c-data-list__cell pf-m-no-fill pf-m-align-right"
-                        >
-                          <a href="#">
-                            <div class="pf-l-flex pf-m-space-items-sm">
-                              <span>20</span>
-                              <i
-                                class="fas fa-check-circle pf-u-success-color-100"
-                                aria-hidden="true"
-                              ></i>
-                            </div>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li
-                    class="pf-c-data-list__item"
-                    aria-labelledby="dashboard-demo-data-list-card-1-data-list-item-4"
-                  >
-                    <div class="pf-c-data-list__item-row">
-                      <div class="pf-c-data-list__item-content">
-                        <div
-                          class="pf-c-data-list__cell"
-                          id="dashboard-demo-data-list-card-1-data-list-item-4"
-                        >12 PVs</div>
-                        <div
-                          class="pf-c-data-list__cell pf-m-no-fill pf-m-align-right"
-                        >
-                          <a href="#">
-                            <div class="pf-l-flex pf-m-space-items-sm">
-                              <span>12</span>
-                              <i
-                                class="fas fa-check-circle pf-u-success-color-100"
-                                aria-hidden="true"
-                              ></i>
-                            </div>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <li
-                    class="pf-c-data-list__item"
-                    aria-labelledby="dashboard-demo-data-list-card-1-data-list-item-5"
-                  >
-                    <div class="pf-c-data-list__item-row">
-                      <div class="pf-c-data-list__item-content">
-                        <div
-                          class="pf-c-data-list__cell"
-                          id="dashboard-demo-data-list-card-1-data-list-item-5"
-                        >18 PVCs</div>
-                        <div
-                          class="pf-c-data-list__cell pf-m-no-fill pf-m-align-right"
-                        >
-                          <a href="#">
-                            <div class="pf-l-flex pf-m-space-items-sm">
-                              <span>18</span>
-                              <i
-                                class="fas fa-check-circle pf-u-success-color-100"
-                                aria-hidden="true"
-                              ></i>
-                            </div>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
+                  {/for}
                 </ul>
               </div>
             </div>  
@@ -425,7 +334,7 @@
       </section>
     </main>
   </div>
-  <script type="module" src="chart.js"></script>
+  <script type="module" src="/chart.js"></script>
 
   <script>
     
