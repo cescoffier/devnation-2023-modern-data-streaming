@@ -24,6 +24,7 @@ deploy-to-kube: kube-prerequisites
     cd measure-enrichment && quarkus deploy kubernetes
     cd dashboard && quarkus deploy kubernetes
     echo "Alert-Manager route: https://`oc get routes -o json --field-selector metadata.name=alert-manager | jq -r '.items[0].spec.host'`"
+    echo "Dashboard route: https://`oc get routes -o json --field-selector metadata.name=dashboard | jq -r '.items[0].spec.host'`"
 
 create-thermometers:
     kubectl apply -f kubernetes/temperature-sensor.yaml
