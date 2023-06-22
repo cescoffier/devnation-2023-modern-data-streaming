@@ -60,9 +60,9 @@ public class DashboardManager {
     @RestStreamElementType(MediaType.APPLICATION_JSON)
     public Multi<Long> streamImageStats() {
         if(ConfigUtils.isProfileActive("dev")) {
-            return Multi.createFrom().ticks().every(Duration.ofSeconds(30)).map( l -> Math.round(getRandomAverage(0,40)));
+            return Multi.createFrom().ticks().every(Duration.ofSeconds(2)).map( l -> Math.round(getRandomAverage(0,40)));
         } else {
-            return Multi.createFrom().ticks().every(Duration.ofSeconds(30)).map(l -> monitoringClient.get().numberOfPredictions());
+            return Multi.createFrom().ticks().every(Duration.ofSeconds(2)).map(l -> monitoringClient.get().numberOfPredictions());
         }
     }
 

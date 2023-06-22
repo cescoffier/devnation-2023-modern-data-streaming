@@ -24,16 +24,25 @@ var y = d3.scaleLinear()
   .domain([0, 500])
   .range([ height, 0 ]);
 
+var x2 = d3.scaleLinear()
+   .domain([0,10])
+   .range([ 0, width ]);
+
+// Add Y axis
+var y2 = d3.scaleLinear()
+   .domain([0, 200])
+   .range([ height, 0 ]);
+
 appendGraphs()
 
 const messageCountTextItem = document.querySelector("#MessageCountCurrentVolume");
 const imageProcessedTextItem = document.querySelector("#imageProcessedCount");
-const displayCriticalCount = document.querySelector("#criticalCount");
-const displayWarningCount = document.querySelector("#warningCount");
-const displayInformationCount = document.querySelector("#informationCount");
+//const displayCriticalCount = document.querySelector("#criticalCount");
+//const displayWarningCount = document.querySelector("#warningCount");
+//const displayInformationCount = document.querySelector("#informationCount");
 
-
-console.log(imageProcessedTextItem);
+const spanTempWarningCount = document.querySelector("#temperatureWarningCount");
+const spanImageWarningCount = document.querySelector("#imageWarningCount");
 
 
 
@@ -65,32 +74,13 @@ imagestats.onmessage = function(event) {
 }
 
 
-//var alarms = new EventSource("/dashboard/alarms");
-//alarms.onmessage = function(event) {
-//  var alarmList = JSON.parse(event.data);
-//  console.log([alarmList]);
-//  // console.log([alarmList].filter(a => a.type==="INFORMATION"));
-//  // console.log([alarmList].filter(a => a.type==='WARNING'));
-//  // console.log([alarmList].filter(a => a.type==="CRITICAL"));
-//  // console.log(alarmList.filter(function(x) { console.log(x.type); return true}))
-//  var numberOfCriticalAlarms = alarmList.filter(a => a.type==="CRITICAL").length
-//  var numberOfWarnings = alarmList.filter(a => a.type==="WARNING").length
-//  var numberOfInformation = alarmList.filter(a => a.type==="INFORMATION").length
-//
-//
-//  displayCriticalCount.innerText = "" + numberOfCriticalAlarms;
-//  displayWarningCount.innerText = "" + numberOfWarnings;
-//  displayInformationCount.innerText = "" + numberOfInformation;
-//
-//}
-
 var rabbitAlarms = new EventSource("/dashboard/rabbit-alarms");
 rabbitAlarms.onmessage = function(event) {
     var alarmList = JSON.parse(event.data);
 
     if(alarmList.length > 0) {
-        console.log("We have a rabbit alarm");
-        console.log(alarmList);
+        spanImageWarningCount.innerText = "" + alarmList.length;
+        console.log("# Rabbit alarm: " + alarmList.length);
     }
 }
 
@@ -99,8 +89,27 @@ temperatureAlarms.onmessage = function(event) {
     var alarmList = JSON.parse(event.data);
 
     if(alarmList.length > 0) {
-        console.log("We have a temperature alarm");
-        console.log(alarmList);
+        spanTempWarningCount.innerText = "" + alarmList.length;
+        console.log("# Temperature alarm: " + alarmList.length);
+        // Find and update the temp warning device in the device list.
+        alarmList.forEach(alarm => {
+            const spanLocationOk = document.querySelector("#deviceLocationOk_" + alarm.location);
+            const spanLocationNok = document.querySelector("#deviceLocationNok_" + alarm.location);
+
+            var errorCount = parseInt(spanLocationNok.innerText);
+            if(alarmList.length != errorCount) {
+                var diff = alarmList.length - errorCount;
+                spanLocationOk.innerText = parseInt(spanLocationOk.innerText)-diff;
+                spanLocationNok.innerText = parseInt(spanLocationNok.innerText)+diff;
+
+            }
+
+
+
+
+        })
+
+
     }
 }
 
@@ -141,9 +150,9 @@ function appendGraphs() {
   // .attr("stroke-width", 1.5)
   .attr("class","fillarea")
   .attr("d", d3.area()
-    .x(function(d,index) { return x(index) })
+    .x(function(d,index) { return x2(index) })
     .y0(function(d) { return height })
-    .y1(function(d) { return y(d) })
+    .y1(function(d) { return y2(d) })
     );
 
   // Add the line
@@ -154,8 +163,8 @@ function appendGraphs() {
   .attr("stroke-width", 1.5)
   .attr("class","topline")
   .attr("d", d3.line()
-    .x(function(d,index) { return x(index) })
-    .y(function(d) { return y(d) })
+    .x(function(d,index) { return x2(index) })
+    .y(function(d) { return y2(d) })
   );
 
 }
@@ -190,8 +199,8 @@ function updateImageChart() {
   .transition()
   .duration(200)
   .attr("d", d3.line()
-    .x(function(d,index) { return x(index) })
-    .y(function(d) { return y(d) })
+    .x(function(d,index) { return x2(index) })
+    .y(function(d) { return y2(d) })
   )
 
   // Add the area  
@@ -200,9 +209,9 @@ function updateImageChart() {
     .transition()
     .duration(200)
     .attr("d", d3.area()
-      .x(function(d,index) { return x(index) })
+      .x(function(d,index) { return x2(index) })
       .y0(function(d) { return height })
-      .y1(function(d) { return y(d) })
+      .y1(function(d) { return y2(d) })
       );
 
 }
