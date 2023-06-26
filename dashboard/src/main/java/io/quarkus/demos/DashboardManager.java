@@ -7,7 +7,6 @@ import jakarta.inject.Singleton;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.core.MediaType;
-import me.escoffier.device.Counters;
 import me.escoffier.device.Device;
 import me.escoffier.device.RabbitAlert;
 import me.escoffier.device.TemperatureAlert;
@@ -15,9 +14,6 @@ import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.resteasy.reactive.RestStreamElementType;
 
 import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -36,6 +32,10 @@ public class DashboardManager {
     @Inject
     TemperatureAlertReceiver temperatureAlertReceiver;
 
+    @Inject
+    MockDeviceTool mockDeviceTool;
+
+
     @RestClient
     MonitoringClient monitoringClient;
 
@@ -48,12 +48,12 @@ public class DashboardManager {
     private static Random rand = new Random();
 
 
-    @GET
-    @Path("/stats")
-    @RestStreamElementType(MediaType.APPLICATION_JSON)
-    public Multi<Counters> streamStats() {
-        return Multi.createFrom().ticks().every(Duration.ofSeconds(2)).map( l -> monitoringClient.get());
-    }
+//    @GET
+//    @Path("/stats")
+//    @RestStreamElementType(MediaType.APPLICATION_JSON)
+//    public Multi<Counters> streamStats() {
+//        return Multi.createFrom().ticks().every(Duration.ofSeconds(2)).map( l -> monitoringClient.get());
+//    }
 
     @GET
     @Path("/stats/average-image-processed")
@@ -96,6 +96,7 @@ public class DashboardManager {
         });
     }
 
+
     @GET
     @Path("/temperature-alarms")
     @RestStreamElementType(MediaType.APPLICATION_JSON)
@@ -105,13 +106,14 @@ public class DashboardManager {
         });
     }
 
+
     @GET
     @Path("/devices")
     public Map<String,List<Device>> devices() {
         if(!ConfigUtils.isProfileActive("dev")) {
             return deviceClient.get().stream().collect(groupingBy(Device::location));
         } else {
-            return mockDeviceList().stream().collect(groupingBy(Device::location));
+            return mockDeviceTool.mockDeviceList().stream().collect(groupingBy(Device::location));
         }
     }
 
@@ -120,62 +122,7 @@ public class DashboardManager {
         return minValue + rand.nextDouble()*(maxValue-minValue);
     }
 
-    private static AlarmType getRandomAlarmType() {
-        int randAlarmType = rand.nextInt(3);
-        switch (randAlarmType) {
-            case 0 : return AlarmType.INFORMATION;
-            case 1 : return AlarmType.WARNING;
-            case 2 : return AlarmType.CRITICAL;
-            default : return AlarmType.INFORMATION;
-        }
-    }
 
-
-    public static List<Alarm> randomListOfAlarms(Long id) {
-        
-        var alarmList = new ArrayList<Alarm>();
-
-        int alarms = rand.nextInt(5); //Generate a maximum of 5 alarms.
-
-        for(int i=0; i<alarms; i++) {
-            var alarm = new Alarm();
-            alarm.setType(getRandomAlarmType());
-            alarm.setTimestamp(LocalDateTime.now().toEpochSecond(ZoneOffset.UTC));
-            alarm.setMachineId("Unknown");
-            alarmList.add(alarm);
-        }
-
-        return alarmList;
-
-    }
-
-    private List<Device> mockDeviceList() {
-        List<Device> deviceList = new ArrayList<>();
-        deviceList.add(create(Device.Kind.THERMOMETER, "t-0001", "Paris"));
-        deviceList.add(create(Device.Kind.THERMOMETER, "t-0002", "Paris"));
-        deviceList.add(create(Device.Kind.THERMOMETER, "t-0003", "Berlin"));
-        deviceList.add(create(Device.Kind.THERMOMETER, "t-0004", "Stockholm"));
-        deviceList.add(create(Device.Kind.THERMOMETER, "t-0005", "Berlin"));
-        deviceList.add(create(Device.Kind.THERMOMETER, "t-0006", "Berlin"));
-        deviceList.add(create(Device.Kind.THERMOMETER, "t-0007", "Stockholm"));
-        deviceList.add(create(Device.Kind.THERMOMETER, "t-0008", "Stockholm"));
-        deviceList.add(create(Device.Kind.THERMOMETER, "t-0009", "Paris"));
-        deviceList.add(create(Device.Kind.THERMOMETER, "t-0010", "Stockholm"));
-
-        deviceList.add(create(Device.Kind.CAMERA, "c-0001", "Stockholm"));
-        deviceList.add(create(Device.Kind.CAMERA, "c-0002", "Paris"));
-        deviceList.add(create(Device.Kind.CAMERA, "c-0003", "Stockholm"));
-        deviceList.add(create(Device.Kind.CAMERA, "c-0004", "Stockholm"));
-        deviceList.add(create(Device.Kind.CAMERA, "c-0005", "Paris"));
-        deviceList.add(create(Device.Kind.CAMERA, "c-0006", "Stockholm"));
-        deviceList.add(create(Device.Kind.CAMERA, "c-0007", "Paris"));
-        deviceList.add(create(Device.Kind.CAMERA, "c-0008", "Berlin"));
-        return deviceList;
-    }
-    
-    private Device create(Device.Kind kind,String id, String location) {
-        return new Device(kind,id,location);
-    }
 
 
 }

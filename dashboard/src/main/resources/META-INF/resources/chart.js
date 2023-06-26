@@ -12,7 +12,8 @@ var imageStatData = [
 
 const messageSvg = d3.select("#messageCountChart").append("svg");
 const imageSvg = d3.select("#imageProcessChart").append("svg");
-
+const messageCountTextItem = document.querySelector("#MessageCountCurrentVolume");
+const imageProcessedTextItem = document.querySelector("#imageProcessedCount");
 
 // Add X axis --> it is a date format
 var x = d3.scaleLinear()
@@ -34,17 +35,6 @@ var y2 = d3.scaleLinear()
    .range([ height, 0 ]);
 
 appendGraphs()
-
-const messageCountTextItem = document.querySelector("#MessageCountCurrentVolume");
-const imageProcessedTextItem = document.querySelector("#imageProcessedCount");
-//const displayCriticalCount = document.querySelector("#criticalCount");
-//const displayWarningCount = document.querySelector("#warningCount");
-//const displayInformationCount = document.querySelector("#informationCount");
-
-const spanTempWarningCount = document.querySelector("#temperatureWarningCount");
-const spanImageWarningCount = document.querySelector("#imageWarningCount");
-
-
 
 // Message stats
 var averageTemperatureEvent = new EventSource("/dashboard/stats/average-temperature-enrichment");
@@ -72,48 +62,6 @@ imagestats.onmessage = function(event) {
 
   updateImageChart();
 }
-
-
-var rabbitAlarms = new EventSource("/dashboard/rabbit-alarms");
-rabbitAlarms.onmessage = function(event) {
-    var alarmList = JSON.parse(event.data);
-
-    if(alarmList.length > 0) {
-        spanImageWarningCount.innerText = "" + alarmList.length;
-        console.log("# Rabbit alarm: " + alarmList.length);
-    }
-}
-
-var temperatureAlarms = new EventSource("/dashboard/temperature-alarms");
-temperatureAlarms.onmessage = function(event) {
-    var alarmList = JSON.parse(event.data);
-
-    if(alarmList.length > 0) {
-        spanTempWarningCount.innerText = "" + alarmList.length;
-        console.log("# Temperature alarm: " + alarmList.length);
-        // Find and update the temp warning device in the device list.
-        alarmList.forEach(alarm => {
-            const spanLocationOk = document.querySelector("#deviceLocationOk_" + alarm.location);
-            const spanLocationNok = document.querySelector("#deviceLocationNok_" + alarm.location);
-
-            var errorCount = parseInt(spanLocationNok.innerText);
-            if(alarmList.length != errorCount) {
-                var diff = alarmList.length - errorCount;
-                spanLocationOk.innerText = parseInt(spanLocationOk.innerText)-diff;
-                spanLocationNok.innerText = parseInt(spanLocationNok.innerText)+diff;
-
-            }
-
-
-
-
-        })
-
-
-    }
-}
-
-
 
 
 function appendGraphs() {

@@ -3,6 +3,7 @@ package io.quarkus.demos;
 
 import io.quarkus.qute.Template;
 import io.quarkus.qute.TemplateInstance;
+import io.quarkus.runtime.configuration.ConfigUtils;
 import io.smallrye.common.annotation.Blocking;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
@@ -23,6 +24,9 @@ public class DashboardPage {
     @Inject
     Template index;
 
+    @Inject
+    MockDeviceTool mockDeviceTool;
+
     @RestClient
     DeviceClient deviceClient;
 
@@ -30,8 +34,13 @@ public class DashboardPage {
     @Produces(MediaType.TEXT_HTML)
     @Blocking
     public TemplateInstance get() {
-        Map<String, List<Device>> deviceLocationMap = deviceClient.get().stream().collect(groupingBy(Device::location));
-        return index.data("deviceLocationMap",deviceLocationMap);
+        if(!ConfigUtils.isProfileActive("dev")) {
+            Map<String, List<Device>> deviceLocationMap = deviceClient.get().stream().collect(groupingBy(Device::location));
+            return index.data("deviceLocationMap", deviceLocationMap);
+        } else {
+            Map<String, List<Device>> deviceLocationMap = mockDeviceTool.mockDeviceList().stream().collect(groupingBy(Device::location));
+            return index.data("deviceLocationMap", deviceLocationMap);
+        }
     }
 
 }
