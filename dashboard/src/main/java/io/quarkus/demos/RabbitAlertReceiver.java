@@ -32,17 +32,15 @@ public class RabbitAlertReceiver {
 
         Client client = ClientBuilder.newClient();
         WebTarget target = client.target(alertManagerBaseUrl + "/rabbits");
-        if (!ConfigUtils.isProfileActive("dev")) {
-            try(SseEventSource eventSource = SseEventSource.target(target).build()) {
-                eventSource.register( event -> {
-                    RabbitAlert rabbitAlert = event.readData(RabbitAlert.class);
-                    if(rabbitAlert.location()!=null) {
-                        rabbitAlertList.add(rabbitAlert);
-                    }
-                    log.info("Received event " + rabbitAlert);
-                });
-                eventSource.open();
-            }
+        try(SseEventSource eventSource = SseEventSource.target(target).build()) {
+            eventSource.register( event -> {
+                RabbitAlert rabbitAlert = event.readData(RabbitAlert.class);
+                if(rabbitAlert.location()!=null) {
+                    rabbitAlertList.add(rabbitAlert);
+                }
+                log.info("Received event " + rabbitAlert);
+            });
+            eventSource.open();
         }
     }
 
@@ -57,10 +55,10 @@ public class RabbitAlertReceiver {
         rabbitAlertList.clear();
         log.infof("Cleared the alert list of %d alerts",size);
 
-        if (ConfigUtils.isProfileActive("dev")) {
-            RabbitAlert rabbitAlert = new RabbitAlert("Stockholm",null);
-            rabbitAlertList.add(rabbitAlert);
-        }
+//        if (ConfigUtils.isProfileActive("dev")) {
+//            RabbitAlert rabbitAlert = new RabbitAlert("Stockholm",null);
+//            rabbitAlertList.add(rabbitAlert);
+//        }
 
     }
 

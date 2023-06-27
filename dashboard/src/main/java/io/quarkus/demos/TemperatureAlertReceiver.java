@@ -27,6 +27,7 @@ public class TemperatureAlertReceiver {
     MockDeviceTool mockDeviceTool;
 
     private final List<TemperatureAlert> temperatureAlertList = new CopyOnWriteArrayList<>();
+    
 
     @ConfigProperty(name="dashboard.alert-manager.url")
     String alertManagerBaseUrl;
@@ -59,14 +60,14 @@ public class TemperatureAlertReceiver {
         temperatureAlertList.clear();
         log.infof("Cleared the alert list of %d alerts",size);
 
-        if (ConfigUtils.isProfileActive("dev")) {
-//            TemperatureAlert tempAlert = new TemperatureAlert("t-0008","Stockholm",50);
-            List<Device> deviceList = mockDeviceTool.mockDeviceList();
-            Random rand = new Random(System.currentTimeMillis());
-            int numberOfErrors = rand.nextInt(deviceList.size() / 2 + 1);
-            List<TemperatureAlert> randomAlerts = deviceList.subList(0, numberOfErrors).stream().map(d -> new TemperatureAlert(d.id(), d.location(), -10.0)).collect(Collectors.toList());
-            temperatureAlertList.addAll(randomAlerts);
-        }
+//        if (ConfigUtils.isProfileActive("dev")) {
+////            TemperatureAlert tempAlert = new TemperatureAlert("t-0008","Stockholm",50);
+//            List<Device> deviceList = mockDeviceTool.mockDeviceList();
+//            Random rand = new Random(System.currentTimeMillis());
+//            int numberOfErrors = rand.nextInt(deviceList.size() / 2 + 1);
+//            List<TemperatureAlert> randomAlerts = deviceList.subList(0, numberOfErrors).stream().map(d -> new TemperatureAlert(d.id(), d.location(), -10.0)).collect(Collectors.toList());
+//            temperatureAlertList.addAll(randomAlerts);
+//        }
 
     }
 

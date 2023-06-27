@@ -59,22 +59,22 @@ public class DashboardManager {
     @Path("/stats/average-image-processed")
     @RestStreamElementType(MediaType.APPLICATION_JSON)
     public Multi<Long> streamImageStats() {
-        if(ConfigUtils.isProfileActive("dev")) {
-            return Multi.createFrom().ticks().every(Duration.ofSeconds(2)).map( l -> Math.round(getRandomAverage(0,40)));
-        } else {
+//        if(ConfigUtils.isProfileActive("dev")) {
+//            return Multi.createFrom().ticks().every(Duration.ofSeconds(2)).map( l -> Math.round(getRandomAverage(0,40)));
+//        } else {
             return Multi.createFrom().ticks().every(Duration.ofSeconds(2)).map(l -> monitoringClient.get().numberOfPredictions());
-        }
+//        }
     }
 
     @GET
     @Path("/stats/average-temperature-enrichment")
     @RestStreamElementType(MediaType.APPLICATION_JSON)
     public Multi<Long> streamTemperatureStats() {
-        if(ConfigUtils.isProfileActive("dev")) {
-            return Multi.createFrom().ticks().every(Duration.ofSeconds(2)).map( l -> Math.round(getRandomAverage(20,500)));
-        } else {
+//        if(ConfigUtils.isProfileActive("dev")) {
+//            return Multi.createFrom().ticks().every(Duration.ofSeconds(2)).map( l -> Math.round(getRandomAverage(20,500)));
+//        } else {
             return Multi.createFrom().ticks().every(Duration.ofSeconds(2)).map(l -> monitoringClient.get().numberOfEnrichedTemperatures());
-        }
+//        }
     }
 
 
@@ -110,11 +110,11 @@ public class DashboardManager {
     @GET
     @Path("/devices")
     public Map<String,List<Device>> devices() {
-        if(!ConfigUtils.isProfileActive("dev")) {
+//        if(!ConfigUtils.isProfileActive("dev")) {
             return deviceClient.get().stream().collect(groupingBy(Device::location));
-        } else {
-            return mockDeviceTool.mockDeviceList().stream().collect(groupingBy(Device::location));
-        }
+//        } else {
+//            return mockDeviceTool.mockDeviceList().stream().collect(groupingBy(Device::location));
+//        }
     }
 
 
