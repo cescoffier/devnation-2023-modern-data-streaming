@@ -54,3 +54,10 @@ rabbit-alert-stream:
 
 alert-monitoring:
  http https://`oc get routes -o json --field-selector metadata.name=alert-manager | jq -r '.items[0].spec.host'`/monitoring
+
+# Allows accessing the kafka service locally.
+port-forward-kafka:
+  jbang https://gist.githubusercontent.com/cescoffier/80cd4659895df854883cf1a3448e1390/raw/9447528ae6bfadb214a700000f92e1c1b2aa7b98/HostEdit.java --ip=127.0.01 --host=kafka
+  kubectl port-forward svc/kafka 9092
+
+
