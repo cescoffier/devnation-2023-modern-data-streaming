@@ -1,8 +1,6 @@
 package io.quarkus.demos;
 
-import io.quarkus.runtime.ConfigConfig;
 import io.quarkus.runtime.StartupEvent;
-import io.quarkus.runtime.configuration.ConfigUtils;
 import io.quarkus.scheduler.Scheduled;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Observes;
@@ -14,20 +12,21 @@ import me.escoffier.device.RabbitAlert;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.logging.Logger;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @ApplicationScoped
 public class RabbitAlertReceiver {
 
-    private final List<RabbitAlert> rabbitAlertList = new CopyOnWriteArrayList<>();
+    private final Map<String,RabbitAlert> rabbitAlertMap = new ConcurrentHashMap<>();
 
     @ConfigProperty(name="dashboard.alert-manager.url")
     String alertManagerBaseUrl;
 
     Logger log = Logger.getLogger(RabbitAlertReceiver.class);
 
+    @SuppressWarnings("unused")
     public void onStart(@Observes StartupEvent startupEvent) {
 
         Client client = ClientBuilder.newClient();
@@ -36,7 +35,7 @@ public class RabbitAlertReceiver {
             eventSource.register( event -> {
                 RabbitAlert rabbitAlert = event.readData(RabbitAlert.class);
                 if(rabbitAlert.location()!=null) {
-                    rabbitAlertList.add(rabbitAlert);
+                    rabbitAlertMap.putIfAbsent(rabbitAlert.location(),rabbitAlert);
                 }
                 log.info("Received event " + rabbitAlert);
             });
@@ -45,20 +44,15 @@ public class RabbitAlertReceiver {
     }
 
     public List<RabbitAlert> getAlerts() {
-        return rabbitAlertList;
+        return rabbitAlertMap.values().stream().toList();
     }
 
 
     @Scheduled(every = "1m")
     void clearAlerts() {
-        int size = rabbitAlertList.size();
-        rabbitAlertList.clear();
+        int size = rabbitAlertMap.size();
+        rabbitAlertMap.clear();
         log.infof("Cleared the alert list of %d alerts",size);
-
-//        if (ConfigUtils.isProfileActive("dev")) {
-//            RabbitAlert rabbitAlert = new RabbitAlert("Stockholm",null);
-//            rabbitAlertList.add(rabbitAlert);
-//        }
 
     }
 
