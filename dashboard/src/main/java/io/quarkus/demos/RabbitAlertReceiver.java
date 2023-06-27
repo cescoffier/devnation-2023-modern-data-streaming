@@ -24,7 +24,7 @@ public class RabbitAlertReceiver {
     @ConfigProperty(name="dashboard.alert-manager.url")
     String alertManagerBaseUrl;
 
-    Logger log = Logger.getLogger(RabbitAlertReceiver.class);
+    final Logger log = Logger.getLogger(RabbitAlertReceiver.class);
 
     @SuppressWarnings("unused")
     public void onStart(@Observes StartupEvent startupEvent) {
