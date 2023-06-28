@@ -1,0 +1,15 @@
+.pf-c-masthead {
+    background-color: #5995E4;
+}
+
+.pf-c-page__sidebar {
+    background-color: #D5D5D5;
+}
+
+.pf-c-nav__link.pf-m-current, .pf-c-nav__link.pf-m-current:hover, .pf-c-nav__item.pf-m-current:not(.pf-m-expanded) .pf-c-nav__link {
+    background-color: grey;
+}
+
+.pf-c-nav__link:hover, .pf-c-nav__link:focus, .pf-c-nav__link:active {
+    background-color: grey;
+}
