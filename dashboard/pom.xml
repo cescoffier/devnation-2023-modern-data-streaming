@@ -44,8 +44,8 @@
       <artifactId>quarkus-resteasy-reactive-qute</artifactId>
     </dependency>
     <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-kubernetes</artifactId>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>

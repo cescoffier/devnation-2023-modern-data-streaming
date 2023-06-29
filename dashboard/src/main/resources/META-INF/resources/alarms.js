@@ -16,6 +16,7 @@ rabbitAlarms.onmessage = function(event) {
         spanImageWarningCount.innerText = "" + alarmList.length;
         console.log("# Rabbit alarm: " + alarmList.length);
         alarmList.forEach(alarm => {
+            console.log(alarm);
             const rabbitAlarmsSpan = document.querySelector("#rabbitAlarms_" + alarm.location);
             rabbitAlarmsSpan.innerText = parseInt(rabbitAlarmsSpan.innerText) + 1;
         });

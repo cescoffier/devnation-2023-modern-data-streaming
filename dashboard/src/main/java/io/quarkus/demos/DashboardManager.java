@@ -5,16 +5,20 @@ import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 import me.escoffier.device.Device;
 import me.escoffier.device.RabbitAlert;
 import me.escoffier.device.TemperatureAlert;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
+import org.jboss.resteasy.reactive.RestPath;
 import org.jboss.resteasy.reactive.RestStreamElementType;
 
 import java.time.Duration;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -79,6 +83,8 @@ public class DashboardManager {
     public Map<String,List<Device>> devices() {
         return deviceClient.get().stream().collect(groupingBy(Device::location));
     }
+
+
 
 
     private static double getRandomAverage(int minValue,int maxValue) {
