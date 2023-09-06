@@ -100,7 +100,7 @@ spec:
               mountPath: /var/lib/pgsql/data
           terminationMessagePolicy: File
           image: >-
-            image-registry.openshift-image-registry.svc:5000/openshift/postgresql@sha256:092c67ff11bff5af0916d194923ba031fd4084c713d9558da8d3b79bed5c02bb
+            image-registry.openshift-image-registry.svc:5000/openshift/postgresql
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       dnsPolicy: ClusterFirst

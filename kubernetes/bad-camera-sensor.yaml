@@ -14,6 +14,8 @@ spec:
     - name: sensor
       image: quay.io/devnation/devnation-2023-camera-sensor:1.0-SNAPSHOT
       imagePullPolicy: IfNotPresent
+      securityContext:
+        allowPrivilegeEscalation: false
       env:
         - name: DEVICE_ID
           value: "c-0007"
@@ -35,6 +37,8 @@ spec:
     - name: sensor
       image: quay.io/devnation/devnation-2023-camera-sensor:1.0-SNAPSHOT
       imagePullPolicy: IfNotPresent
+      securityContext:
+        allowPrivilegeEscalation: false
       env:
         - name: DEVICE_ID
           value: "c-0008"

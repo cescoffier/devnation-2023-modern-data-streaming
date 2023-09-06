@@ -2,7 +2,6 @@ kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
   name: dashboard
-  namespace: devnation
   labels:
     app.kubernetes.io/managed-by: quarkus
     app.kubernetes.io/name: dashboard

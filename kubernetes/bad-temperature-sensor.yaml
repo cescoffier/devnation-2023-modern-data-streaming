@@ -14,6 +14,8 @@ spec:
     - name: sensor
       image: quay.io/devnation/devnation-2023-temperature-sensor:1.0-SNAPSHOT
       imagePullPolicy: IfNotPresent
+      securityContext:
+        allowPrivilegeEscalation: false
       env:
         - name: DEVICE_ID
           value: "t-0010"
@@ -36,6 +38,8 @@ spec:
     - name: sensor
       image: quay.io/devnation/devnation-2023-temperature-sensor:1.0-SNAPSHOT
       imagePullPolicy: IfNotPresent
+      securityContext:
+        allowPrivilegeEscalation: false
       env:
         - name: DEVICE_ID
           value: "t-0011"
